@@ -6,16 +6,20 @@ import InstagramLogo from "../Assests/Images/instagram-logo_1199-122.avif";
 import "./LogIn.css"
 
 function LogIn() {
-
+  
+  // ....................API Link...................................
   const url = "https://3dc0-122-160-165-213.in.ngrok.io/login/"
+
+  // ..................useHistory(for navigate on another component...........)
  const history = useHistory();
 
+//  ...................state for storing Login Credentials............
   const [loginData,setLoginData] = useState({
     email:'',
     password:'',
   })
 
-
+// ...............save data in the state while filing input fields of the form................
   const handleChange=(formData)=>{
     if(formData.target.name === 'email'){
       setLoginData({
@@ -31,9 +35,13 @@ function LogIn() {
     }
   }
   
+
+  // ..................convert Json data in the formData format........................
   const formData = new FormData();
   formData.append("email",loginData.email);
   formData.append("password",loginData.password);
+
+// ..................
   const handleLoginBtn=async(e)=>{
     e.preventDefault();
     console.log(loginData)
@@ -61,7 +69,9 @@ function LogIn() {
   const handleSignUpLink=(e)=>{
     history.push("/signup")
   }
+  
   return (
+    <div>
     <div className="container">
       <div className="row">
         <div className="instaLogo_img col-sm"> <img src={InstagramLogo} alt="instagram Logo" /></div>
@@ -96,7 +106,7 @@ function LogIn() {
           </form>
           
           <div id="signInBlock" className="d-flex justify-content-center">
-            <img src={FacebookLogo} alt="facebook Logo" />
+            <img className="facebook_img" src={FacebookLogo} alt="facebook Logo" />
             <b>
               <p className="text-primary">Log in with facebook</p>
             </b>
@@ -104,12 +114,16 @@ function LogIn() {
           <p className="text-primary">Forgot password?</p>
           <hr />
 
-          <div className="border border-secondary" id="signUp">
+         
+        </div>
+        <div className="row2" id="signUp">
             <p>Don't have an account?<button type="button" class="btn btn-link" onClick={handleSignUpLink}>Sign up</button></p>
             
           </div>
-        </div>
       </div>
+      
+    </div>
+    
     </div>
   );
 }

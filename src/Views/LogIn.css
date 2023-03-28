@@ -7,9 +7,10 @@
     padding-top: 15px;
 }
 
-img{
-    padding-top: 15px;
+.facebook_img{
+    padding-top: 10px;
     height: 40px;
+    width:40px;
 }
 
 #logInBtn{

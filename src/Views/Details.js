@@ -12,6 +12,10 @@ function Details() {
     const handleDetailClick=(e)=>{  
         history.push("/verify",{params:myparam});
     }
+
+    const handlePreviousClick=(e)=>{
+      history.push("/signup",{params:myparam})
+    }
   return (
     <div>
     <div id="container" className='container  border border-secondary'>
@@ -30,7 +34,7 @@ function Details() {
    
     <button type="button" id="nextBtn" class="btn btn-info" onClick={handleDetailClick}>Next</button>
     <br/>
-    <button type="button" class="btn btn-link">Go Back</button>
+    <button type="button" onClick={handlePreviousClick} class="btn btn-link">Go Back</button>
 </div>
     <div id="div_block" className="container  border border-secondary ">
         <p>Have an account?<button type="button" class="btn btn-link">Log in</button></p>

@@ -33,6 +33,10 @@ function Verify() {
           })
         
     }
+
+    const handlepreviousPage=(e)=>{
+      history.push("/Details",{params:myparam});
+    }
   return (
     <div>
         <div  id="container" className='container  border border-secondary'>
@@ -49,7 +53,7 @@ function Verify() {
              <button  type="button" id="nextBtn2" onClick={verifyCodeBtn} className="btn btn-info btn-block">
               Next
             </button><br/>
-            <button type="button" class="btn btn-link">Go Back</button>
+            <button type="button" onClick={handlepreviousPage} class="btn btn-link">Go Back</button>
         </div>
         <div id="div_block" className="container  border border-secondary ">
         <p>Have an account?<button type="button" class="btn btn-link">Log in</button></p>

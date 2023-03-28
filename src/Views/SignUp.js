@@ -8,11 +8,11 @@ function SignUp() {
 
   const history = useHistory();
 
-  // post data url.............
+  // ...........post data url.............
 
   const url = "https://3dc0-122-160-165-213.in.ngrok.io/signup/";
 
-  // state initialization..................
+  // ..........state initialization..................
 
   const [signUpData,setSignUpData] = useState({
     email:'',
@@ -21,7 +21,7 @@ function SignUp() {
     password:'',
   })
 
-  //  store form input field data in the state.................
+  // ............... store form input field data in the state.................
 
   const handleChange =(formData) =>{
     if(formData.target.name === "email")
@@ -55,17 +55,16 @@ function SignUp() {
    
   }
  
+  // ..............json format to formData Object format.................
   const formData = new FormData();
   formData.append("email",signUpData.email)
   formData.append("fullname",signUpData.fullName)
   formData.append("username",signUpData.userName)
   formData.append("password",signUpData.password)
 
-  // store data to the database......................
+  // ..............store data to the database......................
 
   const postUserData =(e) =>{
-
-    
     console.log(signUpData)
     e.preventDefault();
    
@@ -83,6 +82,9 @@ function SignUp() {
       console.log("fiels are required");
     }
   }
+
+
+  
   return (
     <div className="container">
       <div className=" border border-secondary w-50">
