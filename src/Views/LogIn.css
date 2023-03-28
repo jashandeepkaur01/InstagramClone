@@ -1,0 +1,24 @@
+.row{
+    padding-top: 10%;
+}
+
+
+.text-primary{
+    padding-top: 15px;
+}
+
+img{
+    padding-top: 15px;
+    height: 40px;
+}
+
+#logInBtn{
+    width: 100%;
+}
+
+.instaLogo_img img{
+    width:100%;
+    height: 100%;
+}
+
+
