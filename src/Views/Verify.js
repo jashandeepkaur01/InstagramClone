@@ -7,7 +7,7 @@ function Verify() {
 
     const location = useLocation();
     const myparam = location.state.params;
-    const url = "https://3dc0-122-160-165-213.in.ngrok.io/verify/";
+    const url = "https://ead9-122-160-165-213.in.ngrok.io/verify/";
     const [verifyCode,setVerifyCode] = useState('');
     const handleChange=(e)=>{
         setVerifyCode(e.target.value);
@@ -25,7 +25,7 @@ function Verify() {
                 history.push("/login")
             }
             else{
-                console.log("error kdlgjfgf.................................")
+                console.log(".............wrong otp entered...........................")
             }
           })
           .catch((err)=>{

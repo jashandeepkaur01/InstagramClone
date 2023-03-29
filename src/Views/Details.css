@@ -12,6 +12,10 @@
     text-align: left;
 }
 
+.bdy_div img{
+    text-align: right;
+}
+
 #nextBtn{
     width: 50%;
     margin-bottom: 10px;

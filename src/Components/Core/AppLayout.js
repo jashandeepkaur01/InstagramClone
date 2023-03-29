@@ -8,8 +8,6 @@ const AppLayout = ({ isAuthenticated, children }) => {
 
   return (
     <>
-      error Msg: {errorMsg}
-      network status: {networkStatus ? "online" : "offline"}
       {children}
     </>
   );

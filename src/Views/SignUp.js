@@ -10,7 +10,7 @@ function SignUp() {
 
   // ...........post data url.............
 
-  const url = "https://3dc0-122-160-165-213.in.ngrok.io/signup/";
+  const url = "https://ead9-122-160-165-213.in.ngrok.io/signup/";
 
   // ..........state initialization..................
 

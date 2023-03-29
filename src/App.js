@@ -7,12 +7,12 @@ import SignUp from "Views/SignUp";
 import LogIn from "Views/Login";
 import Details from "Views/Details";
 import Verify from "Views/Verify";
+import HomePage from "Views/Home/HomePage";
 
 function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        {/* <Verify/> */}
         <RootRouter />
       </PersistGate>
     </Provider>
