@@ -32,28 +32,44 @@ const GuestRoutes = () => {
 };
 
 const AuthenticatedRoutes = () => {
-  const routes = PUBLIC_ROUTES.concat(PRIVATE_ROUTES);
   return (
-    <PrivateLayout>
-      <Switch>
-        <Route path={routes.map((route) => route.path)}>
-          <RenderRoutes routes={routes} />
-        </Route>
-        <Redirect from="*" to={DEFAULT_AUTHENTICATED_ROUTE} />
-      </Switch>
-    </PrivateLayout>
+    <Switch>
+      <Route exact path={PRIVATE_ROUTES.map((route) => route.path)}>
+        <RenderRoutes routes={PRIVATE_ROUTES} />
+      </Route>
+      <Redirect from="*" to={"/home"} />
+    </Switch>
   );
 };
 
+// const AuthenticatedRoutes = () => {
+//   const routes = PUBLIC_ROUTES.concat(PRIVATE_ROUTES);
+//   return (
+//     <PrivateLayout>
+//       <Switch>
+//         <Route path={routes.map((route) => route.path)}>
+//           <RenderRoutes routes={routes} />
+//         </Route>
+//         <Redirect from="*" to={'/home'} />
+//       </Switch>
+//     </PrivateLayout>
+//   );
+// };
+
 const RootRouter = () => {
   const token = useSelector((state) => state.auth.token);
+
   updateAuthToken(token);
+
   const baseName = process.env.REACT_APP_BASE_NAME;
   const isAuthenticated = !!token;
+
   return (
     <BrowserRouter basename={baseName}>
       <DocumentTitle isAuthenticated={isAuthenticated} />
-      <AppLayout isAuthenticated={isAuthenticated}>{token ? <AuthenticatedRoutes /> : <GuestRoutes />}</AppLayout>
+      <AppLayout isAuthenticated={isAuthenticated}>
+        {token ? <AuthenticatedRoutes /> : <GuestRoutes />}
+      </AppLayout>
     </BrowserRouter>
   );
 };

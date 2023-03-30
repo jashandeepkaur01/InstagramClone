@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
+import '../ForgetPassword/SendLink.css';
 
 function SendLink() {
     const history = useHistory();
-    const url = "https://ead9-122-160-165-213.in.ngrok.io/forgotpassword/"
+    const url = "https://58c2-122-160-165-213.in.ngrok.io/forgotpassword/"
     const [email,setEmail] = useState("");
     const handleChange=(e)=>{
         setEmail(e.target.value);
@@ -23,8 +24,9 @@ function SendLink() {
 
     }
   return (
-    <div className='container border border-secondary w-50'>
-        <input
+    <div id="container1" className='container border border-secondary'>
+    <h2>User's Confirmation</h2>
+        <input id="input1"
                 className="form-control"
                 type="email"
                 name="email"
@@ -34,6 +36,7 @@ function SendLink() {
               <br/>
               
               <button
+              id="linkBtn"
                 type="button"
                 value={email}
                 onClick={handleSubmit}

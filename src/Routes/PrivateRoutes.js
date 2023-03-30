@@ -1,14 +1,13 @@
+import { login } from "Redux/Actions/Auth";
 import Dashbord from "Views/Dashboard";
+import HomePage from "Views/Home/HomePage";
+
 
 export const PRIVATE_ROUTES = [
   {
-    path: "/dashboard",
-    component: Dashbord,
-    title: "Dashboard",
-  },
-  {
-    path: "/wishlist",
-    component: () => "Your wishlist here",
-    title: "Dashboard",
-  },
+    path:"/home",
+    component:HomePage,
+    title:"Home Page",
+      },
+
 ];

@@ -9,6 +9,7 @@ import CreatePost from "Views/CreatePost";
 import SendLink from "Views/ForgetPassword/SendLink";
 import Message from "Views/ForgetPassword/Message";
 import ChangePassword from "Views/ForgetPassword/ChangePassword";
+import Discription from "Views/Main Content/Discription";
 
 
 export const PUBLIC_ROUTES = [
@@ -58,6 +59,11 @@ export const PUBLIC_ROUTES = [
   path:'/changePassword/:token/:uid',
   component:ChangePassword,
   title:"Change Password"
+},
+{
+  path:'/discription',
+  component:Discription,
+  title:"post discription",
 }
   
   

@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import { LoginData } from "Redux/Actions/feedPageActions";
 import FacebookLogo from "../Assests/Images/facebook.png";
 import InstagramLogo from "../Assests/Images/instagram-logo_1199-122.avif";
 import "./LogIn.css";
 
 function LogIn() {
+  const dispatch = useDispatch();
   // ....................API Link...................................
   const url = "https://ead9-122-160-165-213.in.ngrok.io/login/";
 
@@ -35,31 +38,43 @@ function LogIn() {
   };
 
   // ..................convert Json data in the formData format........................
-  const formData = new FormData();
-  formData.append("email", loginData.email);
-  formData.append("password", loginData.password);
+
 
   // ..................API hit and validate login credentials............
-  const handleLoginBtn = async (e) => {
-    e.preventDefault();
-    console.log(loginData);
-    if (loginData.email !== "" && loginData.password !== "") {
-      await axios
-        .post(url, formData)
-        .then((res) => {
-          console.log(res);
-          if (res.data.Token) {
-            history.push("/home");
-          } else {
-            console.log("Invalid username");
-          }
-        })
-        .catch((err) => {
-          console.log("error.......", err);
-        });
-    } else {
-      console.log("fields are required");
-    }
+  const handleLoginBtn = (e) => {
+    const formData = new FormData();
+    formData.append("email", loginData.email);
+    formData.append("password", loginData.password);
+    dispatch(LoginData({
+      payload: formData,
+      success: (response) => {
+        debugger;
+        history.push("/home")
+      },
+      fail: (err) => {
+
+      }
+    }));
+
+
+  
+    // if (loginData.email !== "" && loginData.password !== "") {
+    //   await axios
+    //     .post(url, formData)
+    //     .then((res) => {
+    //       console.log(res);
+    //       if (res.data.Token) {
+    //         history.push("/home");
+    //       } else {
+    //         console.log("Invalid username");
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log("error.......", err);
+    //     });
+    // } else {
+    //   console.log("fields are required");
+    // }
   };
 
   // .......................navigate to signup page...................

@@ -36,9 +36,9 @@ function Details() {
     <br/>
     <button type="button" onClick={handlePreviousClick} class="btn btn-link">Go Back</button>
 </div>
-    <div id="div_block" className="container  border border-secondary ">
+    {/* <div id="div_block" className="container  border border-secondary ">
         <p>Have an account?<button type="button" class="btn btn-link">Log in</button></p>
-      </div>
+      </div> */}
     </div>
 
     
