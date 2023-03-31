@@ -4,19 +4,18 @@ import "../ForgetPassword/Message.css";
 function Message() {
   const history = useHistory();
   const handleClick = (e) => {
-    history.push("/changePassword/:token/:uid")
+    history.push("/changePassword/:token/:uid");
   };
   return (
     <div id="messageId" className="container d-flex justify-content-center">
-      <h3 id="messageHeading">Email Sent</h3><br/>
-      {/* <p>Go and check the email</p> */}
-      <button id="messageBtn" type="button" onClick={handleClick}>
+      <h3 id="messageHeading">Email Sent</h3>
+      <br />
+      <p>Please go and check your email</p>
+      {/* <button id="messageBtn" type="button" onClick={handleClick}>
         Ok
-      </button>
+      </button> */}
     </div>
   );
 }
 
 export default Message;
-
-

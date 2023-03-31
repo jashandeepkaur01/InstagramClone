@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import "../Views/CreatePost.css";
-import { ChangeEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
 

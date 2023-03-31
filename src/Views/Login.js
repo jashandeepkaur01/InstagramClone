@@ -5,12 +5,12 @@ import { Link, useHistory } from "react-router-dom";
 import { LoginData } from "Redux/Actions/feedPageActions";
 import FacebookLogo from "../Assests/Images/facebook.png";
 import InstagramLogo from "../Assests/Images/instagram-logo_1199-122.avif";
+
 import "./LogIn.css";
 
 function LogIn() {
   const dispatch = useDispatch();
-  // ....................API Link...................................
-  const url = "https://ead9-122-160-165-213.in.ngrok.io/login/";
+  
 
   // ..................useHistory(for navigate on another component...........)
   const history = useHistory();

@@ -40,11 +40,7 @@ export const PUBLIC_ROUTES = [
   component:HomePage,
   title:"Home Page",
  },
- {
-  path:"/createPost",
-  component:CreatePost,
-  title:"Create Post",
- },
+ 
  {
   path:'/sendlink',
   component:SendLink,
@@ -60,11 +56,7 @@ export const PUBLIC_ROUTES = [
   component:ChangePassword,
   title:"Change Password"
 },
-{
-  path:'/discription',
-  component:Discription,
-  title:"post discription",
-}
+
   
   
 ];

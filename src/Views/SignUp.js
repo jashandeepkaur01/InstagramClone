@@ -1,16 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import { API } from "Shared/Constants";
+import { axiosInstance } from "Shared/Request";
 import "./SignUp.css";
 function SignUp() {
 
   
 
   const history = useHistory();
-
-  // ...........post data url.............
-
-  const url = "https://ead9-122-160-165-213.in.ngrok.io/signup/";
 
   // ..........state initialization..................
 
@@ -69,7 +67,7 @@ function SignUp() {
     e.preventDefault();
    
     if(signUpData.email!==''&& signUpData.fullName!==''&& signUpData.userName!=='' && signUpData.password!==''){
-      axios.post(url,formData).then(()=>{
+      axiosInstance.post(API.SIGNUP,formData).then(()=>{
         
       })
       .catch((err)=>{

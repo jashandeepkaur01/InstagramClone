@@ -2,3 +2,5 @@ export const GETDATA = "GETDATA";
 export const SETDATA = "SETDATA";
 export const LOGINDATA = "LOGINDATA";
 export const SETLOGINDATA = "SETLOGINDATA";
+export const UPLOADDATA = "UPLOADDATA";
+export const SETUPLOADEDDATA="SETUPLOADEDDATA"

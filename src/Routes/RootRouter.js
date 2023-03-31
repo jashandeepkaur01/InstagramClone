@@ -37,7 +37,7 @@ const AuthenticatedRoutes = () => {
       <Route exact path={PRIVATE_ROUTES.map((route) => route.path)}>
         <RenderRoutes routes={PRIVATE_ROUTES} />
       </Route>
-      <Redirect from="*" to={"/home"} />
+      <Redirect from="*" to={"/login"} />
     </Switch>
   );
 };
