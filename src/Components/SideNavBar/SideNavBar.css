@@ -1,0 +1,29 @@
+.nav_bar{
+    height: 800px;
+    width: 23%;
+    /* background-color: aliceblue; */
+}
+
+.header{
+    padding-top: 30px;
+    padding-left: 18px;
+}
+
+
+.l1{
+    padding-top:  20px;
+    padding-left: 5px;
+    list-style: none;
+}
+
+.l1 .nav_btn{
+    text-decoration: none;
+    color: black;
+   
+}
+
+
+.button:hover {
+    background-color: #4CAF50;
+    color: white;
+  }

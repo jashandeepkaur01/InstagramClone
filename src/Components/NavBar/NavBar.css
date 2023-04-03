@@ -1,0 +1,31 @@
+.NavBar_Content{
+    height: 54px;
+    background-color: white;
+    border-bottom: 1px solid #ddbbdd ;
+}
+
+.navBar_logo{
+    margin-top: 5px;
+
+}
+
+.NavBar_img{
+    margin: 15px 10px;
+}
+
+.navBar_search{
+    height: 30px;
+    width: 215px;
+    margin-top: 10px;
+    border: 1px solid #dbdbdb;
+    text-align: center;
+    background-color: #fafafa;
+    border-radius: 5px;
+}
+
+.logoutBtn{
+    background-color: black;
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+}

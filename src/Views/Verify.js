@@ -25,7 +25,7 @@ function Verify() {
       .then((res) => {
         console.log("response = ", res);
         if (res.data.status) {
-          history.push("/login");
+          // history.push("/login");
         } else {
           console.log(
             ".............wrong otp entered..........................."

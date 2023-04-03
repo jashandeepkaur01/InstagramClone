@@ -3,3 +3,15 @@
     height: 400px;
     background-color: antiquewhite;
 }
+.selectDiv{
+    position: absolute;
+}
+.selectedPost{
+    height: 200px;
+    z-index: 2;
+    position: relative;
+    top: 0%;
+    left: 0%;
+    margin-top: 50px;
+}
+

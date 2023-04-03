@@ -1,0 +1,10 @@
+.info_container{
+    height: 300px;
+    width: 56px;
+    margin-top: 50px;
+}
+
+.info_image{
+    min-width: 60px;
+    min-height: 60px;
+}

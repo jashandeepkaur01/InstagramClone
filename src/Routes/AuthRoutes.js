@@ -1,18 +1,13 @@
-import Login from "Views/Login";
-import SignUp from "Views/SignUp";
+import LoginPage from "Components/LoginPage/LoginPage";
 
 
 export const AUTH_ROUTES = [
   {
     path: "/login",
-    component: Login,
+    component: LoginPage,
     title: "Login",
   },
-  {
-    path: "/signup",
-    component: SignUp,
-    title: "Signup",
-  },
+  
   
   
 ];

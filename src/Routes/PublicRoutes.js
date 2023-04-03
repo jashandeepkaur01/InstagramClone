@@ -1,30 +1,25 @@
 import AboutUs from "Views/AboutUs";
 import { Link } from "react-router-dom";
-import SignUp from "Views/SignUp";
 import Details from "Views/Details";
 import { login } from "Redux/Actions/Auth";
 import Verify from "Views/Verify";
-import HomePage from "Views/Home/HomePage";
 import CreatePost from "Views/CreatePost";
 import SendLink from "Views/ForgetPassword/SendLink";
 import Message from "Views/ForgetPassword/Message";
 import ChangePassword from "Views/ForgetPassword/ChangePassword";
 import Discription from "Views/Main Content/Discription";
+import LoginPage from "Components/LoginPage/LoginPage";
 
-
+import HomePage from "Components/HomePage/HomePage"
 export const PUBLIC_ROUTES = [
 
   {
     path:"/login",
-    component:login,
+    component: LoginPage,
     title:"Login Page",
     exact:true
   },
-  {
-    path:"/signup",
-    component:SignUp,
-    title:"SignUp Page",
-  },
+  
   {
     path:"/Details",
     component:Details,

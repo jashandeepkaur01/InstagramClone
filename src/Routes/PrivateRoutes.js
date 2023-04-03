@@ -1,9 +1,9 @@
 import { login } from "Redux/Actions/Auth";
 import CreatePost from "Views/CreatePost";
 import Dashbord from "Views/Dashboard";
-import HomePage from "Views/Home/HomePage";
+// import HomePage from "Views/Home/HomePage";
 import Discription from "Views/Main Content/Discription";
-
+import HomePage from "Components/HomePage/HomePage"
 
 export const PRIVATE_ROUTES = [
   {

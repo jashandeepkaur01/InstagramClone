@@ -4,3 +4,5 @@ export const LOGINDATA = "LOGINDATA";
 export const SETLOGINDATA = "SETLOGINDATA";
 export const UPLOADDATA = "UPLOADDATA";
 export const SETUPLOADEDDATA="SETUPLOADEDDATA"
+export const LOGOUT = "LOGOUT";
+export const SETLOGOUTDATA = "SETLOGOUTDATA";

@@ -1,6 +1,7 @@
 import { LOGIN } from "../Actions/Auth";
 import { ACTION_STATES } from "../Actions/ActionStates";
-import {  SETLOGINDATA }from "Redux/Actions/feedPageActions/actionStates";
+import {  SETLOGINDATA, SETLOGOUTDATA}from "Redux/Actions/feedPageActions/actionStates";
+
 
 const initialState = {
   token: null,
@@ -16,6 +17,8 @@ const authReducer = (state = initialState, action) => {
         token: action.token,
       };
     }
+    case SETLOGOUTDATA:
+      return {...state,token:null, userData:null}
     default: {
       return state;
     }

@@ -1,4 +1,4 @@
-import {GETDATA,LOGINDATA,SETDATA, SETLOGINDATA, SETUPLOADEDDATA, UPLOADDATA} from "./actionStates";
+import {GETDATA,LOGINDATA,LOGOUT,SETDATA, SETLOGINDATA, SETLOGOUTDATA, SETUPLOADEDDATA, UPLOADDATA} from "./actionStates";
 export const getData = (data)=>{
     return{
         
@@ -40,6 +40,20 @@ export const uploadData=(data)=>{
 export const setUploadedPost=(data)=>{
     return{
         type:SETUPLOADEDDATA,
+        data
+    }
+}
+
+export const logOut = (data) =>{
+    return{
+        type:LOGOUT,   
+        data
+    }
+}
+
+export const setLogout = (data)=>{
+    return{
+        type:SETLOGOUTDATA,
         data
     }
 }

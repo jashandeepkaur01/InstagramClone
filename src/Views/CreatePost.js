@@ -19,21 +19,26 @@ useEffect(()=>{
     }
   };
 
+
+
   const handleNextClick=(e)=>{
-    history.push("/discription")
+    // const form = new FormData();
+    // form.append("image",selectedImage);
+    // history.push("/discription",form)
   }
  
   return (
     <div id="container" className='container w-50'>
       <h2>Create new Post</h2><hr/>
+      <div className='selectDiv'>
       <input type="file" id="select-image" onChange={handleFileChange}/>
       <label>{imageUrl && selectedImage && (
         <div  textAlign = "center">
-          <img src={imageUrl} alt={selectedImage.name} height="100px" />
-          <button onClick={handleNextClick}>Next</button>
+          <img src={imageUrl} alt={selectedImage.name} className="selectedPost"/>
+          <button className="nextBtn" onClick={handleNextClick}>Next</button>
         </div>
       )}</label><br/>
-      
+      </div>
     </div>
   )
 }

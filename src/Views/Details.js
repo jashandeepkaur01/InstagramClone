@@ -1,7 +1,7 @@
 import React from 'react'
 import './Details.css';
-import birthdayIcon from '../Assests/Images/images.png';
-import arrow from '../Assests/Images/downArrow.png';
+// import birthdayIcon from '../Assests/Images/images.png';
+
 import { useHistory, useLocation } from 'react-router-dom';
 function Details() {
 
@@ -14,19 +14,19 @@ function Details() {
     }
 
     const handlePreviousClick=(e)=>{
-      history.push("/signup",{params:myparam})
+      // history.push("/signup",{params:myparam})
     }
   return (
     <div>
     <div id="container" className='container  border border-secondary'>
-    <img src={birthdayIcon} alt="birthday icon" />
+    {/* <img src="alt="birthday icon" /> */}
     <h4>Add Your Birthday</h4>
     <p>This won't be a part of your public profile.<br/>
     <button type="button" class="btn btn-link">Why do I need to provide my birthday?</button></p>
     <div className='d-flex justify-content-center '>
-        <div className='bdy_div border border-secondary'><img src={arrow} alt="down arrow" /></div>
-        <div className='bdy_div border border-secondary'><img src={arrow} alt="down arrow" /></div>
-        <div className='bdy_div border border-secondary'><img src={arrow} alt="down arrow" /></div>
+        <div className='bdy_div border border-secondary'><img src="" alt="down arrow" /></div>
+        <div className='bdy_div border border-secondary'><img src="" alt="down arrow" /></div>
+        <div className='bdy_div border border-secondary'><img src="" alt="down arrow" /></div>
     </div>
     <p>You need to enter the date you were born</p>
     <br/>

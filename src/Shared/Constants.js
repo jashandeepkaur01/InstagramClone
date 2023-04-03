@@ -3,7 +3,7 @@ export const STRINGS = {
   OFFLINE_MESSAGE: "You appear to be offline. Please check your internet connection.",
 };
 
-export const baseURL = "https://8d12-122-160-165-213.in.ngrok.io/";
+export const baseURL = "https://6ff7-122-160-165-213.in.ngrok.io/";
 
 export const API ={
   LOGIN : baseURL+"login/",
@@ -14,5 +14,5 @@ export const API ={
   CONFIRM :baseURL+"confirm/",
   VERIFY:baseURL+"verify/",
   REEL : baseURL+"reel/",
-
+  LOGOUT : baseURL+"logout/",
 }
