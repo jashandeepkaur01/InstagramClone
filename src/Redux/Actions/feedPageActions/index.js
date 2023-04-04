@@ -1,4 +1,4 @@
-import {GETDATA,LOGINDATA,LOGOUT,SETDATA, SETLOGINDATA, SETLOGOUTDATA, SETUPLOADEDDATA, UPLOADDATA} from "./actionStates";
+import {GETDATA,LOGINDATA,LOGOUT,REPORTDATA,SETDATA, SETLOGINDATA, SETLOGOUTDATA, SETUPLOADEDDATA, UPLOADDATA} from "./actionStates";
 export const getData = (data)=>{
     return{
         
@@ -57,3 +57,11 @@ export const setLogout = (data)=>{
         data
     }
 }
+
+export const reportData = (data)=>{
+    return{
+        type:REPORTDATA,
+        data
+    }
+}
+

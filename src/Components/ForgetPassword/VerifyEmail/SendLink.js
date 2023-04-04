@@ -1,13 +1,17 @@
+
 import axios from "axios";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { API } from "Shared/Constants";
 import { axiosInstance } from "Shared/Request";
-import "../ForgetPassword/SendLink.css";
+import "./SendLink.css";
+import Modal from 'react-bootstrap/Modal';
 
 function SendLink() {
   const history = useHistory();
-
+  const [show,setShow]= useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [email, setEmail] = useState("");
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -19,14 +23,21 @@ function SendLink() {
     if (email !== "") {
       axiosInstance.post(API.FORGOTPASSWORD, form).then((res) => {
         if (res.data.status) {
-          history.push("/message");
+         
+            handleShow();
+         
+        }
+        else{
+
+          <p>Please enter valid email id...</p>
         }
       });
     }
   };
   return (
+    <>
     <div id="container1" className="container border border-secondary">
-      <h2>User's Confirmation</h2>
+      <h2 className="header">User's Confirmation</h2>
       <input
         id="input1"
         className="form-control"
@@ -36,6 +47,7 @@ function SendLink() {
         placeholder="email"
       />
       <br />
+      
 
       <button
         id="linkBtn"
@@ -46,7 +58,15 @@ function SendLink() {
       >
         Send login link
       </button>
+     
     </div>
+
+    <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton><h2>Email sent</h2></Modal.Header>
+        <Modal.Body><div>Please go and check your email...</div></Modal.Body>
+     <Modal.Footer><button onClick={handleClose}>Close</button></Modal.Footer>
+      </Modal>
+        </>
   );
 }
 

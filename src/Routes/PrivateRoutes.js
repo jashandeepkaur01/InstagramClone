@@ -1,8 +1,7 @@
 import { login } from "Redux/Actions/Auth";
-import CreatePost from "Views/CreatePost";
+import CreatePost from "../Components/CreatePost/CreatePost";
 import Dashbord from "Views/Dashboard";
-// import HomePage from "Views/Home/HomePage";
-import Discription from "Views/Main Content/Discription";
+
 import HomePage from "Components/HomePage/HomePage"
 
 export const PRIVATE_ROUTES = [
@@ -17,9 +16,5 @@ export const PRIVATE_ROUTES = [
         component:CreatePost,
         title:"Create Post",
        },
-       {
-        path:'/discription',
-        component:Discription,
-        title:"post discription",
-      }
+   
 ];

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import "../Views/CreatePost.css";
+import "../CreatePost/CreatePost";
 import { useHistory } from 'react-router-dom';
 
 
@@ -13,6 +13,7 @@ useEffect(()=>{
     setImageUrl(URL.createObjectURL(selectedImage));
   }
 },[selectedImage])
+
   const handleFileChange = (e) => {
     if (e.target.files) {
       setSelectedImage(e.target.files[0]);
@@ -22,11 +23,9 @@ useEffect(()=>{
 
 
   const handleNextClick=(e)=>{
-    // const form = new FormData();
-    // form.append("image",selectedImage);
-    // history.push("/discription",form)
   }
- 
+
+  
   return (
     <div id="container" className='container w-50'>
       <h2>Create new Post</h2><hr/>

@@ -3,7 +3,7 @@ import './Suggestion.css';
 function Suggestion() {
   return (
     <div>
-vcbvcb
+
     </div>
   )
 }

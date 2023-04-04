@@ -17,7 +17,7 @@ function NavBar() {
    const handleLogoutAction=()=>{dispatch(logOut({
     
         success: (response) => {
-            debugger;
+            
             localStorage.clear();
             history.push("/login")
           },

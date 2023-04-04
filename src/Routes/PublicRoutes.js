@@ -1,13 +1,11 @@
-import AboutUs from "Views/AboutUs";
+
 import { Link } from "react-router-dom";
 import Details from "Views/Details";
 import { login } from "Redux/Actions/Auth";
-import Verify from "Views/Verify";
-import CreatePost from "Views/CreatePost";
-import SendLink from "Views/ForgetPassword/SendLink";
-import Message from "Views/ForgetPassword/Message";
-import ChangePassword from "Views/ForgetPassword/ChangePassword";
-import Discription from "Views/Main Content/Discription";
+import Verify from "Components/ForgetPassword/VerifyMail/Verify";
+import CreatePost from "../Components/CreatePost/CreatePost";
+import SendLink from "../Components/ForgetPassword/VerifyEmail/SendLink";
+import ChangePassword from "../Components/ForgetPassword/ChangePassword/ChangePassword";
 import LoginPage from "Components/LoginPage/LoginPage";
 
 import HomePage from "Components/HomePage/HomePage"
@@ -42,16 +40,9 @@ export const PUBLIC_ROUTES = [
   title:"send Link",
  },
 {
-  path:'/message',
-  component:Message,
-  title:"Email Sent message"
-},
-{
   path:'/changePassword/:token/:uid',
   component:ChangePassword,
   title:"Change Password"
 },
 
-  
-  
 ];

@@ -47,6 +47,7 @@ function SignIn(){
       formData.append("email", loginData.email);
       formData.append("password", loginData.password);
       console.log(formData,'fgfdgfdh')
+      if(loginData.email!=="" && loginData.password!==""){
       dispatch(LoginData({
         payload: formData,
         success: (response) => {
@@ -57,6 +58,10 @@ function SignIn(){
             console.log(err,"fdgfdgfg")
         }
       }));
+    }
+    else{
+      <alert>All field are Required</alert>
+    }
     }
 
     return (

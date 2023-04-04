@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { API } from "Shared/Constants";
 import { axiosInstance } from "Shared/Request";
-import "../ForgetPassword/Changepassword.css";
+import './ChangePassword.css'
 
 function ChangePassword() {
   const history = useHistory();
@@ -35,8 +35,6 @@ function ChangePassword() {
     formdata.append("token", token);
     formdata.append("uid", uid);
     formdata.append("password", password.newPassword);
-    console.log("confirmPass", password.confirmPassword);
-    console.log(password.newPassword);
     formdata.append("confirmpassword", password.confirmPassword);
     axiosInstance
       .post(API.CONFIRM, formdata)

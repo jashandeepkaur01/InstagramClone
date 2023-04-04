@@ -73,7 +73,7 @@ function SignUp() {
         console.log(err)
       })
      
-      history.push("/Details",{params:signUpData.email})
+      history.push("/verify",{params:signUpData.email})
     }
     else{
       console.log("fiels are required");
@@ -82,10 +82,10 @@ function SignUp() {
 
     return (
         <div>
-            <input className='loginPage_text' placeholder="Phone number or email" type="text" onChange={handleChange}></input>
-            <input className='loginPage_text' placeholder="Full name" type="text" onChange={handleChange}></input>
-            <input className='loginPage_text' placeholder="Username" type="text" onChange={handleChange}></input>
-            <input className='loginPage_text' placeholder="Password" type="password" onChange={handleChange}></input>
+            <input className='loginPage_text' placeholder="Phone number or email" type="text" name="email" onChange={handleChange}></input>
+            <input className='loginPage_text' placeholder="Full name" type="text" name="fullName" onChange={handleChange}></input>
+            <input className='loginPage_text' placeholder="Username" type="text" name="userName" onChange={handleChange}></input>
+            <input className='loginPage_text' placeholder="Password" type="password" name="password" onChange={handleChange}></input>
             <button className='login_Btn' onClick={postUserData}>Sign up</button>
 
 

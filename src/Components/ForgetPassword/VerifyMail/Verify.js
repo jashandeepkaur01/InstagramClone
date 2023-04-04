@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { API } from "Shared/Constants";
 import { axiosInstance } from "Shared/Request";
-import "./Details.css";
+// import "./Details.css";
 
 function Verify() {
   const location = useLocation();
@@ -19,13 +19,12 @@ function Verify() {
   formData.append("email", myparam);
   formData.append("otp", verifyCode);
 
-  const verifyCodeBtn = async (e) => {
-    await axiosInstance
+  const verifyCodeBtn = (e) => {
+    axiosInstance
       .post(API.VERIFY, formData)
       .then((res) => {
         console.log("response = ", res);
         if (res.data.status) {
-          // history.push("/login");
         } else {
           console.log(
             ".............wrong otp entered..........................."

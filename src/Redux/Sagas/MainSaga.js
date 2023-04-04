@@ -4,7 +4,7 @@ import { takeLatest, put,all } from 'redux-saga/effects'
 import { LOGOUT } from 'Redux/Actions/Auth';
 import { setData, setLoginData, setLogout } from 'Redux/Actions/feedPageActions';
 
-import { GETDATA, LOGINDATA, SETLOGINDATA } from 'Redux/Actions/feedPageActions/actionStates'
+import { GETDATA, LOGINDATA, REPORTDATA, SETLOGINDATA } from 'Redux/Actions/feedPageActions/actionStates'
 import { updateAuthToken } from 'Shared/Axios';
 import { API } from 'Shared/Constants';
 import { axiosInstance } from 'Shared/Request';
@@ -60,10 +60,29 @@ function* logoutCall({data:{success,fail}}){
     }
 }
 
+function* reportCall({data:{payload,success,fail}}){
+                                                                                                    
+    try{
+        
+        const response =  yield axiosInstance.post(API.REPORT,payload)
+        // yield put(setLoginData(response?.data));
+        console.log("response",response)
+        if(success){
+            
+            success(response);
+        }
+     }
+    catch(error){
+        if(fail){
+            fail(error);
+        }
+    }
+}
 
 function* Saga(){
     yield all([yield takeLatest(GETDATA,showData),
-    yield takeLatest(LOGINDATA,loginCall),yield takeLatest(LOGOUT,logoutCall)])
+    yield takeLatest(LOGINDATA,loginCall),yield takeLatest(LOGOUT,logoutCall),
+yield takeLatest(REPORTDATA,reportCall)])
  
 }
 
