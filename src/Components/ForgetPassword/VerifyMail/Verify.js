@@ -1,19 +1,24 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { API } from "Shared/Constants";
 import { axiosInstance } from "Shared/Request";
-// import "./Details.css";
 
 function Verify() {
   const location = useLocation();
   const myparam = location.state.params;
-
+  const dispatch = useDispatch();
   const [verifyCode, setVerifyCode] = useState("");
   const handleChange = (e) => {
     setVerifyCode(e.target.value);
   };
 
+  const handleResendOtp = () => {
+    const formData = new FormData();
+    formData.append("email", myparam);
+    dispatch();
+  };
   let history = useHistory();
   const formData = new FormData();
   formData.append("email", myparam);
@@ -45,8 +50,8 @@ function Verify() {
         <h3>Enter Confirmation Code</h3>
         <br />
         <p>
-          Enter the confirmation code we sent to jashandeep.kaur@chicmic.co.in.{" "}
-          <button type="button" class="btn btn-link">
+          Enter the confirmation code we sent to {myparam}
+          <button type="button" class="btn btn-link" onClick={handleResendOtp}>
             Resend Code.
           </button>
         </p>

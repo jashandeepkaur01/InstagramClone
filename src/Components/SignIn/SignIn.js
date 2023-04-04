@@ -3,7 +3,7 @@ import "../LoginPage/LoginPage.css";
 
 
 import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { LoginData } from "Redux/Actions/feedPageActions";
 
 
@@ -42,7 +42,7 @@ function SignIn(){
   
     // ..................API hit and validate login credentials............
     const handleLoginBtn = (e) => {
-        debugger;
+     
       const formData = new FormData();
       formData.append("email", loginData.email);
       formData.append("password", loginData.password);

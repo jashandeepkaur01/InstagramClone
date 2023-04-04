@@ -16,4 +16,5 @@ export const API ={
   REEL : baseURL+"reel/",
   LOGOUT : baseURL+"logout/",
   REPORT : baseURL+"report/",
+  RESEND : baseURL+"resend/",
 }

@@ -42,20 +42,6 @@ const AuthenticatedRoutes = () => {
   );
 };
 
-// const AuthenticatedRoutes = () => {
-//   const routes = PUBLIC_ROUTES.concat(PRIVATE_ROUTES);
-//   return (
-//     <PrivateLayout>
-//       <Switch>
-//         <Route path={routes.map((route) => route.path)}>
-//           <RenderRoutes routes={routes} />
-//         </Route>
-//         <Redirect from="*" to={'/home'} />
-//       </Switch>
-//     </PrivateLayout>
-//   );
-// };
-
 const RootRouter = () => {
   const token = useSelector((state) => state.auth.token);
 

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Details from "Views/Details";
 import { login } from "Redux/Actions/Auth";
 import Verify from "Components/ForgetPassword/VerifyMail/Verify";
-import CreatePost from "../Components/CreatePost/CreatePost";
 import SendLink from "../Components/ForgetPassword/VerifyEmail/SendLink";
 import ChangePassword from "../Components/ForgetPassword/ChangePassword/ChangePassword";
 import LoginPage from "Components/LoginPage/LoginPage";

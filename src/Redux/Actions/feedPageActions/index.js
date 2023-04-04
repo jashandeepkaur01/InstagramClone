@@ -1,4 +1,4 @@
-import {GETDATA,LOGINDATA,LOGOUT,REPORTDATA,SETDATA, SETLOGINDATA, SETLOGOUTDATA, SETUPLOADEDDATA, UPLOADDATA} from "./actionStates";
+import {GETDATA,LOGINDATA,LOGOUT,REPORTDATA,RESENDOTP,SETDATA, SETLOGINDATA, SETLOGOUTDATA, SETUPLOADEDDATA, UPLOADDATA} from "./actionStates";
 export const getData = (data)=>{
     return{
         
@@ -65,3 +65,9 @@ export const reportData = (data)=>{
     }
 }
 
+export const resendOTP = (data)=>{
+    return{
+        type:RESENDOTP,
+        data
+    }
+}

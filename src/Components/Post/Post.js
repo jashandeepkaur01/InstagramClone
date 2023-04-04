@@ -18,8 +18,11 @@ function Post() {
   const history = useHistory();
   const data = useSelector((state) => state?.HomeReducer?.feedData[0]);
   const ImagesData = data ? Object.values(data) : [];
+
   const [show, setShow] = useState(false);
   const [showModal,setShowModal] = useState(false);
+  const [showCommentBox,setCommentBox] = useState(false);
+  
   const handleShow = () => {
     setShow(true);
   };
@@ -36,6 +39,13 @@ function Post() {
     console.log("event", e);
     handleShow();
   };
+  const openCommentBox=()=>{
+    setCommentBox(true);
+  }
+
+  const closeCommentBox=()=>{
+    setCommentBox(false);
+  }
 
   const handleReportAction=(data,id)=>{
 console.log("data",data.id);
@@ -61,10 +71,14 @@ console.log("id",id)
   const handleLikeClick=()=>{
     
   }
+
+  const handleComment=()=>{
+    openCommentBox();
+  }
   return (
     <div id="container_main_div" className="container">
       {ImagesData?.map((item, idx) => {
-        <div>ghfghfth</div>;
+      
         return (
           <div key={idx} className="main_content">
             <div className="post_header">
@@ -122,7 +136,14 @@ console.log("id",id)
 
             <div style={{ marginLeft: "10px" }}>
               <img src={love} className="post_reactImg" onClick={handleLikeClick} />
-              <img src={comment} className="post_reactImg" />
+              <img src={comment} onClick={handleComment} className="post_reactImg" />
+              <Modal show={showCommentBox} onHide={closeCommentBox}>
+              <Modal.Header closeButton><h2>Comments</h2></Modal.Header>
+                <Modal.Body>
+                  
+                </Modal.Body>
+                <Modal.Footer><button onClick={closeCommentBox}>close</button></Modal.Footer>
+                </Modal>
               <img src={share} className="post_reactImg" />
             </div>
             <div style={{ fontWeight: "bold", marginLeft: "20px" }}>
@@ -130,11 +151,7 @@ console.log("id",id)
             </div>
 
             <div>
-              <div className="post_comment">Hello comment 1</div>
-              <div className="post_comment">Hello comment 2</div>
-              <div className="post_comment">Hello comment 3</div>
-              <div className="post_comment">Hello comment 4</div>
-              <div className="post_comment">Hello comment 5</div>
+             
               <input
                 type="text"
                 className="post_commentBox"
