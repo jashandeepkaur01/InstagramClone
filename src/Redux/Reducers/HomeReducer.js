@@ -8,6 +8,7 @@ const {
 const initialData = {
   feedData: [],
   loginData: [],
+  
 };
 
 const HomeReducer = (data = initialData, action) => {
@@ -15,6 +16,7 @@ const HomeReducer = (data = initialData, action) => {
     case GETDATA:
       return data;
     case SETDATA:
+
       return { ...data, feedData: action?.data?.map((data) => ({ ...data })) };
     case LOGINDATA:
       console.log("loginData", data);

@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import { API } from "Shared/Constants";
 import { axiosInstance } from "Shared/Request";
-import './ChangePassword.css'
+import "./ChangePassword.css";
 
 function ChangePassword() {
   const history = useHistory();
@@ -13,21 +13,20 @@ function ChangePassword() {
   });
 
   const { token, uid } = useParams();
-  console.log(token, "  ", uid);
+  const [Err, setErr] = useState(false);
+  const [ErrMsg, setErrMsg] = useState("");
+  const handleOpenErrPopUp = () => {
+    setErr(true);
+  };
+  const handleCloseErrPopUp = () => {
+    setErr(false);
+  };
 
   const handleChange = (e) => {
-    if (e.target.name === "newPassword") {
-      setPassword({
-        ...password,
-        newPassword: e.target.value,
-      });
-    }
-    if (e.target.name === "confirmPassword") {
-      setPassword({
-        ...password,
-        confirmPassword: e.target.value,
-      });
-    }
+    setPassword({
+      ...password,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleClick = (e) => {
@@ -40,12 +39,12 @@ function ChangePassword() {
       .post(API.CONFIRM, formdata)
       .then((res) => {
         if (res.data.status) {
-          console.log(res, " ok");
           history.push("/login");
         }
       })
       .catch((err) => {
-        console.log("error", err);
+        setErrMsg(err.message);
+        handleOpenErrPopUp();
       });
   };
   return (
@@ -73,8 +72,16 @@ function ChangePassword() {
           Set Password
         </button>
       </form>
+
+      <Modal show={Err} onHide={handleCloseErrPopUp}>
+        <Modal.Body>
+          <h2>{ErrMsg}</h2>
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleCloseErrPopUp}>Ok</button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
-
 export default ChangePassword;

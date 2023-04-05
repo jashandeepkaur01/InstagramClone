@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import {  useHistory } from "react-router-dom";
 import "./SideNavBar.css";
 import Insta_logo from "../../Images/images/logoinsta.png";
 import { Modal } from "react-bootstrap";
@@ -14,7 +14,14 @@ function Navbar() {
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
   const dispatch = useDispatch();
-
+  const [Err, setErr] = useState(false);
+  const [ErrMsg, setErrMsg] = useState("");
+  const handleOpenErrPopUp = () => {
+    setErr(true);
+  };
+  const handleCloseErrPopUp = () => {
+    setErr(false);
+  };
   useEffect(() => {
     if (selectedImage) {
       setImageUrl(URL.createObjectURL(selectedImage));
@@ -45,6 +52,7 @@ function Navbar() {
 
   const handleNextClick = (e) => {
     const formData = new FormData();
+    console.log(imageUrl,"imageUrl..........")
     formData.append("image", imageUrl);
     formData.append("description", description);
     dispatch(
@@ -54,7 +62,8 @@ function Navbar() {
           history.push("/home");
         },
         fail: (err) => {
-          console.log(err, "upload data.........");
+          setErrMsg(err.message);
+          handleOpenErrPopUp();
         },
       })
     );
@@ -68,46 +77,46 @@ function Navbar() {
       </h1>
       <ul className="listing">
         <li className="l1">
-          <button type="button" className="btn btn-link nav_btn">
+          <button type="button" className="sideNavButton">
             Home
           </button>
         </li>
         <li className="l1">
-          <button type="button" className="btn btn-link nav_btn">
+          <button type="button" className="sideNavButton">
             Search
           </button>
         </li>
         <li className="l1">
-          <button type="button" className="btn btn-link nav_btn">
+          <button type="button" className="sideNavButton">
             Explore
           </button>
         </li>
         <li className="l1">
-          <button type="button" className="btn btn-link nav_btn">
+          <button type="button" className="sideNavButton">
             Reels
           </button>
         </li>
         <li className="l1">
-          <button type="button" className="btn btn-link nav_btn">
+          <button type="button" className="sideNavButton">
             Messages
           </button>
         </li>
         <li className="l1">
-          <button type="button" className="btn btn-link nav_btn">
+          <button type="button" className="sideNavButton">
             Notifications
           </button>
         </li>
         <li className="l1">
           <button
             type="button"
-            className="btn btn-link nav_btn"
+            className="sideNavButton"
             onClick={handleCreatePostBtn}
           >
             Create
           </button>
         </li>
         <li className="l1">
-          <button type="button" className="btn btn-link nav_btn">
+          <button type="button" className="sideNavButton">
             Profile
           </button>
         </li>
@@ -140,6 +149,14 @@ function Navbar() {
             <br />
           </div>
         </Modal.Body>
+      </Modal>
+      <Modal show={Err} onHide={handleCloseErrPopUp}>
+        <Modal.Body>
+          <h2>{ErrMsg}</h2>
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleCloseErrPopUp}>Ok</button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

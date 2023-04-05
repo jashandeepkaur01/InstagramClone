@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
 import { baseURL } from "./Constants";
 
 export const axiosInstance = axios.create({

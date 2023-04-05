@@ -55,7 +55,7 @@ function StatusBar() {
 
     useEffect(()=>{
         getData();
-        // console.log(statusList,"fbcvnbvnb")
+       
     },[])
 
 
@@ -71,7 +71,7 @@ function StatusBar() {
                 <div className='statusBar_text'>{item.username}</div>
             </div>)
         })}
-        {/* {setTimeout(showStatus,5000)} */}
+       
         
         </div>
     </div>

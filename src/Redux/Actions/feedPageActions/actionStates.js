@@ -8,3 +8,4 @@ export const LOGOUT = "LOGOUT";
 export const SETLOGOUTDATA = "SETLOGOUTDATA";
 export const REPORTDATA="REPORTDATA";
 export const RESENDOTP = "RESENDOTP";
+export const LIKE = "LIKE";

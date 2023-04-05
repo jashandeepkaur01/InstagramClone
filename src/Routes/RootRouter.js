@@ -9,7 +9,6 @@ import { PUBLIC_ROUTES } from "./PublicRoutes";
 import { PRIVATE_ROUTES } from "./PrivateRoutes";
 import DocumentTitle from "./DocumentTitle";
 import PublicLayout from "Components/Core/PublicLayout";
-import PrivateLayout from "Components/Core/PrivateLayout";
 import RenderRoutes from "./RenderRoutes";
 
 const DEFAULT_AUTHENTICATED_ROUTE = "/login";

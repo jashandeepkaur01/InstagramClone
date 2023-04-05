@@ -9,6 +9,7 @@ import {
 
 import {
   GETDATA,
+  LIKE,
   LOGINDATA,
   REPORTDATA,
   RESENDOTP,
@@ -21,8 +22,10 @@ import { axiosInstance } from "Shared/Request";
 function* showData(payload) {
   try {
     const response = yield axiosInstance.get(API.POST, payload.data);
-    debugger;
-    yield put(setData(Object.values(response?.data)));
+    console.log("response",response)
+  
+    yield put(setData(response?.data?.data));
+   
   } catch (error) {
     if (payload && payload?.fail) {
       payload.fail(error);
@@ -98,6 +101,21 @@ function* resendOTPCall({ data: { payload, success, fail } }) {
     }
   }
 }
+
+function* likeCall({data:{payload,success,fail}})
+{
+  try{
+    const response = yield axiosInstance.get(API.LIKES,payload);
+    if(success){
+      console.log("response",response)
+      success(response);
+    }
+  }catch(error){
+    if(fail){
+      fail(error)
+    }
+  }
+}
 function* Saga() {
   yield all([
     yield takeLatest(GETDATA, showData),
@@ -106,6 +124,7 @@ function* Saga() {
     yield takeLatest(REPORTDATA, reportCall),
     yield takeLatest(UPLOADDATA, uploadDataCall),
     yield takeLatest(RESENDOTP, resendOTPCall),
+    yield takeLatest(LIKE,likeCall),
   ]);
 }
 

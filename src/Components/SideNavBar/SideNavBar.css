@@ -27,3 +27,15 @@
     background-color: #4CAF50;
     color: white;
   }
+
+  .sideNavButton{
+    height: 20px;
+    width: 80px;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    
+  }

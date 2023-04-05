@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { API } from "Shared/Constants";
@@ -7,9 +7,18 @@ import { axiosInstance } from "Shared/Request";
 
 function Verify() {
   const location = useLocation();
+  let history = useHistory();
   const myparam = location.state.params;
   const dispatch = useDispatch();
   const [verifyCode, setVerifyCode] = useState("");
+  const [Err, setErr] = useState(false);
+  const [ErrMsg, setErrMsg] = useState("");
+  const handleOpenErrPopUp = () => {
+    setErr(true);
+  };
+  const handleCloseErrPopUp = () => {
+    setErr(false);
+  };
   const handleChange = (e) => {
     setVerifyCode(e.target.value);
   };
@@ -19,30 +28,24 @@ function Verify() {
     formData.append("email", myparam);
     dispatch();
   };
-  let history = useHistory();
-  const formData = new FormData();
-  formData.append("email", myparam);
-  formData.append("otp", verifyCode);
 
   const verifyCodeBtn = (e) => {
+    const formData = new FormData();
+    formData.append("email", myparam);
+    formData.append("otp", verifyCode);
     axiosInstance
       .post(API.VERIFY, formData)
       .then((res) => {
-        console.log("response = ", res);
-        if (res.data.status) {
-        } else {
-          console.log(
-            ".............wrong otp entered..........................."
-          );
-        }
+        history.push('/login');
       })
       .catch((err) => {
-        console.log(err);
+        setErrMsg(err.message);
+        handleOpenErrPopUp();
       });
   };
 
   const handlepreviousPage = (e) => {
-    history.push("/Details", { params: myparam });
+    history.push("/SignUp", { params: myparam });
   };
   return (
     <div>
@@ -55,6 +58,7 @@ function Verify() {
             Resend Code.
           </button>
         </p>
+        <form>
         <input
           className="form-control"
           type="text"
@@ -72,6 +76,7 @@ function Verify() {
         >
           Next
         </button>
+        </form>
         <br />
         <button type="button" onClick={handlepreviousPage} class="btn btn-link">
           Go Back
@@ -85,6 +90,14 @@ function Verify() {
           </button>
         </p>
       </div>
+      <Modal show={Err} onHide={handleCloseErrPopUp}>
+        <Modal.Body>
+          <h2>{ErrMsg}</h2>
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleCloseErrPopUp}>Ok</button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
