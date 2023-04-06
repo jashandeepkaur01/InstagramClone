@@ -9,3 +9,5 @@ export const SETLOGOUTDATA = "SETLOGOUTDATA";
 export const REPORTDATA="REPORTDATA";
 export const RESENDOTP = "RESENDOTP";
 export const LIKE = "LIKE";
+export const POSTCOMMENT = "POSTCOMMENT";
+export const SETLIKEDATA = "SETLIKEDATA";

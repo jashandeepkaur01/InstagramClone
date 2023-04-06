@@ -2,7 +2,9 @@
 import { takeLatest, put, all } from "redux-saga/effects";
 import { LOGOUT } from "Redux/Actions/Auth";
 import {
+  like,
   setData,
+  setLikesData,
   setLoginData,
   setLogout,
 } from "Redux/Actions/feedPageActions";
@@ -11,6 +13,7 @@ import {
   GETDATA,
   LIKE,
   LOGINDATA,
+  POSTCOMMENT,
   REPORTDATA,
   RESENDOTP,
   UPLOADDATA,
@@ -22,14 +25,11 @@ import { axiosInstance } from "Shared/Request";
 function* showData(payload) {
   try {
     const response = yield axiosInstance.get(API.POST, payload.data);
-    console.log("response",response)
-  
     yield put(setData(response?.data?.data));
    
   } catch (error) {
     if (payload && payload?.fail) {
-      payload.fail(error);
-      console.log("error...........", error);
+      payload.fail(error.response.data.message)
     }
   }
 }
@@ -43,7 +43,7 @@ function* loginCall({ data: { payload, success, fail } }) {
     }
   } catch (error) {
     if (fail) {
-      fail(error);
+      fail(error.response.data.message);
     }
   }
 }
@@ -57,7 +57,7 @@ function* logoutCall({ data: { success, fail } }) {
     }
   } catch (error) {
     if (fail) {
-      fail(error);
+      fail(error.response.data.message);
     }
   }
 }
@@ -71,20 +71,21 @@ function* reportCall({ data: { payload, success, fail } }) {
     }
   } catch (error) {
     if (fail) {
-      fail(error);
+      fail(error.response.data.message);
     }
   }
 }
 
 function* uploadDataCall({ data: { payload, success, fail } }) {
   try {
+    
     const response = yield axiosInstance.post(API.POST, payload);
     if (success) {
       success(response);
     }
   } catch (error) {
     if (fail) {
-      fail(error);
+      fail(error.response.data.message);
     }
   }
 }
@@ -97,7 +98,7 @@ function* resendOTPCall({ data: { payload, success, fail } }) {
     }
   } catch (error) {
     if (fail) {
-      fail(error);
+      fail(error.response.data.message);
     }
   }
 }
@@ -105,14 +106,30 @@ function* resendOTPCall({ data: { payload, success, fail } }) {
 function* likeCall({data:{payload,success,fail}})
 {
   try{
-    const response = yield axiosInstance.get(API.LIKES,payload);
+ 
+    const response = yield axiosInstance.post(API.LIKES,payload);
+    
     if(success){
-      console.log("response",response)
+      
+      yield put(setLikesData(response?.data));
       success(response);
     }
   }catch(error){
     if(fail){
-      fail(error)
+      fail(error.response.data.message)
+    }
+  }
+}
+function* commentCall({data:{payload,success,fail}}){
+  try{
+    const response = yield axiosInstance.post(API.COMMENT,payload);
+    if(success){
+      success(response)
+    }
+  }
+  catch(error){
+    if(fail){
+      fail(error.response.data.message);
     }
   }
 }
@@ -125,6 +142,7 @@ function* Saga() {
     yield takeLatest(UPLOADDATA, uploadDataCall),
     yield takeLatest(RESENDOTP, resendOTPCall),
     yield takeLatest(LIKE,likeCall),
+    yield takeLatest(POSTCOMMENT,commentCall),
   ]);
 }
 

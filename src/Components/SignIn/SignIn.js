@@ -47,7 +47,8 @@ function SignIn() {
           history.push("/home");
         },
         fail: (err) => {
-          setErrMsg(err.message);
+          console.log(err,"error")
+          setErrMsg(err);
           handleOpenErrPopUp();
         },
       })
@@ -79,7 +80,7 @@ function SignIn() {
       </form>
       <Modal show={Err} onHide={handleCloseErrPopUp}>
         <Modal.Body>
-          <h2>{ErrMsg}</h2>
+          <p>{ErrMsg}</p>
         </Modal.Body>
         <Modal.Footer>
           <button onClick={handleCloseErrPopUp}>Ok</button>

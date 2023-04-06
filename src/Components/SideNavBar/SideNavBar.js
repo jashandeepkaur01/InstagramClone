@@ -52,8 +52,9 @@ function Navbar() {
 
   const handleNextClick = (e) => {
     const formData = new FormData();
-    console.log(imageUrl,"imageUrl..........")
-    formData.append("image", imageUrl);
+    console.log(e,"iurrre")
+    console.log(imageUrl,"image")
+    formData.append("image", selectedImage);
     formData.append("description", description);
     dispatch(
       uploadData({

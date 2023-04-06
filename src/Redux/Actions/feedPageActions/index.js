@@ -1,4 +1,4 @@
-import {GETDATA,LIKE,LOGINDATA,LOGOUT,REPORTDATA,RESENDOTP,SETDATA, SETLOGINDATA, SETLOGOUTDATA, SETUPLOADEDDATA, UPLOADDATA} from "./actionStates";
+import {GETDATA,LIKE,LIKESDATA,LOGINDATA,LOGOUT,POSTCOMMENT,REPORTDATA,RESENDOTP,SETDATA, SETLIKEDATA, SETLOGINDATA, SETLOGOUTDATA, SETUPLOADEDDATA, UPLOADDATA} from "./actionStates";
 export const getData = (data)=>{
     return{
         
@@ -73,8 +73,25 @@ export const resendOTP = (data)=>{
 }
 
 export const like = (data)=>{
+    
     return{
+
         type: LIKE,
         data
     }
 }
+
+export const postComment = (data)=>{
+    return{
+        type: POSTCOMMENT,
+        data
+    }
+}
+
+export const setLikesData=(data)=>{
+    return{
+        type: SETLIKEDATA,
+        data
+    }
+}
+

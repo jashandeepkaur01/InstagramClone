@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { baseURL } from "Shared/Constants";
 import "./Post.css";
 import love from "../../Images/images/love.svg";
-import comment from "../../Images/images/message.svg";
+import Comment from "../../Images/images/message.svg";
 import share from "../../Images/images/share.svg";
 import { Avatar } from "@mui/material";
 import ReportIcon from "../../Images/images/option.png";
 import { Modal } from "react-bootstrap";
-import { like, reportData } from "Redux/Actions/feedPageActions";
+import { like, postComment, reportData, setLikesData } from "Redux/Actions/feedPageActions";
 import { useHistory } from "react-router-dom";
 
 function Post() {
@@ -16,18 +16,21 @@ function Post() {
   const history = useHistory();
   const [Err, setErr] = useState(false);
   const [ErrMsg, setErrMsg] = useState("");
+  const [comment,setComment] = useState("");
+
+
   const handleOpenErrPopUp = () => {
     setErr(true);
   };
   const handleCloseErrPopUp = () => {
     setErr(false);
   };
-  const [likes,setlikes]=useState(0);
   const ImagesData = useSelector((state) => state?.HomeReducer?.feedData);
   console.log("imagesData.........", ImagesData);
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showCommentBox, setCommentBox] = useState(false);
+  
 
   const handleShow = () => {
     setShow(true);
@@ -41,6 +44,7 @@ function Post() {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+  
   const handleReportIcon = (e) => {
     console.log("event", e);
     handleShow();
@@ -54,8 +58,6 @@ function Post() {
   };
 
   const handleReportAction = (data, id) => {
-    console.log("data", data.id);
-    console.log("id", id);
     const form = new FormData();
     form.append("type", 1);
     form.append("id", data.id);
@@ -69,29 +71,51 @@ function Post() {
           history.push("/home");
         },
         fail: (err) => {
-          setErrMsg(err.message);
+          setErrMsg(err.response.data.message);
           handleOpenErrPopUp();
         },
       })
     );
   };
 
-  const handleLikeClick = (id) => {
+  const handleLikeClick = (item) => {
     const form = new FormData();
-    form.append("post_id",id)
+    form.append("post_id",item.id)
+    form.append('like_id',1)
     dispatch(like({
       payload: form,
       success:(response)=>{
-        setlikes();
+        debugger;
       },
       fail:(err)=>{
-        setErrMsg(err.message);
+        setErrMsg(err.response.data.message);
         handleOpenErrPopUp();
         
       }
     }))
   };
 
+  const handleCommentInput=(data)=>{
+    console.log("data")
+    setComment(data.target.value);
+  }
+
+  const handleCommentSection=(id)=>{
+    const formdata = new FormData();
+    formdata.append('parent_id',0);
+    formdata.append('post_id',id)
+    formdata.append("comment",comment);
+    dispatch(postComment({
+      payload: formdata,
+      success:(response)=>{
+        console.log("res....",response);
+      },
+      fail:(err)=>{
+        setErrMsg(err.response.data.message);
+        handleOpenErrPopUp();
+      }
+    }))
+  }
   const handleComment = () => {
     openCommentBox();
   };
@@ -178,11 +202,10 @@ function Post() {
               <img
                 src={love}
                 className="post_reactImg"
-                onClick={()=>handleLikeClick(item.id)}
+                onClick={()=>handleLikeClick(item)}
               />
-             <div></div>
               <img
-                src={comment}
+                src={Comment}
                 onClick={handleComment}
                 className="post_reactImg"
               />
@@ -198,7 +221,7 @@ function Post() {
               <img src={share} className="post_reactImg" />
             </div>
             <div style={{ fontWeight: "bold", marginLeft: "20px" }}>
-              7799 likes
+             {item.LikeCount}
             </div>
             <div>
               <input
@@ -206,7 +229,9 @@ function Post() {
                 type="text"
                 className="post_commentBox"
                 placeholder="Add a comment..."
+                onChange={handleCommentInput}
               />
+              <button className="commentBtn" onClick={()=>handleCommentSection(item.id)}>Share</button>
             </div>
             <Modal show={Err} onHide={handleCloseErrPopUp}>
               <Modal.Body>
