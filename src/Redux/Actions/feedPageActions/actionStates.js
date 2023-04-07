@@ -11,3 +11,6 @@ export const RESENDOTP = "RESENDOTP";
 export const LIKE = "LIKE";
 export const POSTCOMMENT = "POSTCOMMENT";
 export const SETLIKEDATA = "SETLIKEDATA";
+export const GETCOMMENTS = "GETCOMMENTS";
+export const REEL ="REEL";
+export const SETREELSDATA = "SETREELSDATA";

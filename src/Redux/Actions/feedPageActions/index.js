@@ -1,4 +1,4 @@
-import {GETDATA,LIKE,LIKESDATA,LOGINDATA,LOGOUT,POSTCOMMENT,REPORTDATA,RESENDOTP,SETDATA, SETLIKEDATA, SETLOGINDATA, SETLOGOUTDATA, SETUPLOADEDDATA, UPLOADDATA} from "./actionStates";
+import {GETCOMMENTS, GETDATA,LIKE,LOGINDATA,LOGOUT,POSTCOMMENT,REEL,REPORTDATA,RESENDOTP,SETDATA, SETLIKEDATA, SETLOGINDATA, SETLOGOUTDATA, SETREELSDATA, SETUPLOADEDDATA, UPLOADDATA} from "./actionStates";
 export const getData = (data)=>{
     return{
         
@@ -95,3 +95,23 @@ export const setLikesData=(data)=>{
     }
 }
 
+export const getComment=(data)=>{
+    return{
+        type: GETCOMMENTS,
+        data
+    }
+}
+
+export const reels=(data)=>{
+    return{
+        type: REEL,
+        data
+    }
+}
+
+export const setReelsData=(data)=>{
+    return{
+        type:SETREELSDATA,
+        data
+    }
+}

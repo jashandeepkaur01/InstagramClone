@@ -2,18 +2,20 @@
 import { takeLatest, put, all } from "redux-saga/effects";
 import { LOGOUT } from "Redux/Actions/Auth";
 import {
-  like,
   setData,
   setLikesData,
   setLoginData,
   setLogout,
+  setReelsData,
 } from "Redux/Actions/feedPageActions";
 
 import {
+  GETCOMMENTS,
   GETDATA,
   LIKE,
   LOGINDATA,
   POSTCOMMENT,
+  REEL,
   REPORTDATA,
   RESENDOTP,
   UPLOADDATA,
@@ -122,6 +124,7 @@ function* likeCall({data:{payload,success,fail}})
 }
 function* commentCall({data:{payload,success,fail}}){
   try{
+    
     const response = yield axiosInstance.post(API.COMMENT,payload);
     if(success){
       success(response)
@@ -130,6 +133,38 @@ function* commentCall({data:{payload,success,fail}}){
   catch(error){
     if(fail){
       fail(error.response.data.message);
+    }
+  }
+}
+
+function* getCommentsCall({data:{payload,success,fail}}){
+  try{
+    
+    const response = yield axiosInstance.get(API.COMMENT,{
+      params:{
+        pk:payload
+      }
+    })
+  
+    if(success){
+      success(response)
+    }
+  }
+  catch(error){
+    if(fail){
+      fail(error.response.data.message);
+    }
+  }
+}
+
+function* getReels(payload){
+  try {
+    const response = yield axiosInstance.get(API.REEL, payload.data);
+    yield put(setReelsData(response?.data?.data));
+   
+  } catch (error) {
+    if (payload && payload?.fail) {
+      payload.fail(error.response.data.message)
     }
   }
 }
@@ -143,6 +178,8 @@ function* Saga() {
     yield takeLatest(RESENDOTP, resendOTPCall),
     yield takeLatest(LIKE,likeCall),
     yield takeLatest(POSTCOMMENT,commentCall),
+    yield takeLatest(GETCOMMENTS,getCommentsCall),
+    yield takeLatest(REEL,getReels)
   ]);
 }
 

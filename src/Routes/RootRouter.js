@@ -10,8 +10,6 @@ import { PRIVATE_ROUTES } from "./PrivateRoutes";
 import DocumentTitle from "./DocumentTitle";
 import PublicLayout from "Components/Core/PublicLayout";
 import RenderRoutes from "./RenderRoutes";
-
-const DEFAULT_AUTHENTICATED_ROUTE = "/login";
 const DEFAULT_GUEST_ROUTE = "/login";
 
 const GuestRoutes = () => {

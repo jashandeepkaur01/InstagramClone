@@ -1,9 +1,8 @@
-import Verify from "Components/ForgetPassword/VerifyMail/Verify";
-import SendLink from "../Components/ForgetPassword/VerifyEmail/SendLink";
-import ChangePassword from "../Components/ForgetPassword/ChangePassword/ChangePassword";
-import LoginPage from "Components/LoginPage/LoginPage";
+import Verify from "Components/Atoms/ForgetPassword/VerifyMail/Verify";
+import LoginPage from "Views/LoginPage/LoginPage";
+import ChangePassword from "../Components/Atoms/ForgetPassword/ChangePassword/ChangePassword";
+import SendLink from "../Components/Atoms/ForgetPassword/VerifyEmail/SendLink";
 
-import HomePage from "Components/HomePage/HomePage";
 export const PUBLIC_ROUTES = [
   {
     path: "/login",
@@ -17,12 +16,6 @@ export const PUBLIC_ROUTES = [
     component: Verify,
     title: "Verification Page",
   },
-  {
-    path: "/home",
-    component: HomePage,
-    title: "Home Page",
-  },
-
   {
     path: "/sendlink",
     component: SendLink,

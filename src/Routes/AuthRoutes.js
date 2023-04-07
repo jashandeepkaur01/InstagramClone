@@ -1,5 +1,4 @@
-import LoginPage from "Components/LoginPage/LoginPage";
-
+import LoginPage from "Views/LoginPage/LoginPage";
 
 export const AUTH_ROUTES = [
   {
@@ -7,7 +6,4 @@ export const AUTH_ROUTES = [
     component: LoginPage,
     title: "Login",
   },
-  
-  
-  
 ];
