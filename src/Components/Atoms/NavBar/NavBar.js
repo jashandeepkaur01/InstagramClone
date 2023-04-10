@@ -82,7 +82,15 @@ function NavBar() {
             <h2>Are you sure you want to logout</h2>
           </Modal.Body>
           <Modal.Footer>
-            <button onClick={handleLogoutAction}>Ok</button>
+            <button
+              className="logoutCancel"
+              onClick={() => setLogoutModal(false)}
+            >
+              Cancel
+            </button>
+            <button className="logoutOk" onClick={handleLogoutAction}>
+              Ok
+            </button>
           </Modal.Footer>
         </Modal>
       </div>

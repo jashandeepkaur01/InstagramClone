@@ -24,6 +24,9 @@ function Post() {
   const [ErrMsg, setErrMsg] = useState("");
   const [comment, setComment] = useState("");
   const [commentArr, setCommmentArr] = useState([]);
+  const [commentErrStatus, setCommentErrStatus] = useState(false);
+  const [commentErr, setCommentErr] = useState("");
+
   const handleOpenErrPopUp = () => {
     setErr(true);
   };
@@ -31,7 +34,6 @@ function Post() {
     setErr(false);
   };
   const ImagesData = useSelector((state) => state?.HomeReducer?.feedData);
-  console.log("imagesData.........", ImagesData);
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showCommentBox, setCommentBox] = useState(false);
@@ -50,7 +52,6 @@ function Post() {
   };
 
   const handleReportIcon = (e) => {
-    console.log("event", e);
     handleShow();
   };
   const openCommentBox = () => {
@@ -108,10 +109,17 @@ function Post() {
     formdata.append("parent_id", 0);
     formdata.append("post_id", id);
     formdata.append("comment", comment);
+    if (comment === "") {
+      setCommentErrStatus(true);
+      setCommentErr("Comment required");
+      return;
+    }
     dispatch(
       postComment({
         payload: formdata,
-        success: (response) => {},
+        success: (response) => {
+          setComment("");
+        },
         fail: (err) => {
           setErrMsg(err.response.data.message);
           handleOpenErrPopUp();
@@ -236,13 +244,17 @@ function Post() {
                 className="post_commentBox"
                 placeholder="Add a comment..."
                 onChange={handleCommentInput}
+                value={comment}
               />
               <button
                 className="commentBtn"
                 onClick={() => handleCommentSection(item.id)}
               >
-                Share
+                Send
               </button>
+              <span className="text-danger">
+                {commentErrStatus ? commentErr : ""}
+              </span>
             </div>
             <Modal show={Err} onHide={handleCloseErrPopUp}>
               <Modal.Body>

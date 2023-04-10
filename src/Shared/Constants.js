@@ -4,7 +4,7 @@ export const STRINGS = {
     "You appear to be offline. Please check your internet connection.",
 };
 
-export const baseURL = "https://89b8-122-160-165-213.in.ngrok.io/";
+export const baseURL = "https://bf4e-122-160-165-213.ngrok-free.app/";
 
 export const API = {
   LOGIN: baseURL + "login/",
@@ -34,3 +34,7 @@ export const reportReasons = [
   "I just don't like it",
   "Something else",
 ];
+
+export const regex = /^[A-Za-z0-9+_.]{3,}@[A_Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/;
+
+export const numberRegex = /^[0-9]+$/;

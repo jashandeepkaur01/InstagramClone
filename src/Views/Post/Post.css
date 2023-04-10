@@ -1,56 +1,57 @@
-.post_container{
-    width: 615px;
-    border: 1px solid #dbdbdb;
-    background-color: white;
-    margin-top: 25px;
+.post_container {
+  width: 615px;
+  border: 1px solid #dbdbdb;
+  background-color: white;
+  margin-top: 25px;
 }
 
-.post_header{
-   height: 60px;
-   border-bottom: 1px solid #dbdbdb; 
-   display: flex;
+.post_header {
+  height: 60px;
+  border-bottom: 1px solid #dbdbdb;
+  display: flex;
 }
-.post_img{
-    min-height: 35px;
-    min-width: 35px;
-    margin: 10px;
-}
-
-.post_username{
-    font-weight: bold;
-    margin-top: 18px;
+.post_img {
+  min-height: 35px;
+  min-width: 35px;
+  margin: 10px;
 }
 
-.post_reactImg{
-    width:25px;
-    margin:5px;
-    height:30px;
+.post_username {
+  font-weight: bold;
+  margin-top: 18px;
 }
 
-.post_comment{
-    margin:10px;
+.post_reactImg {
+  width: 25px;
+  margin: 5px;
+  height: 30px;
 }
 
-.post_commentBox{
-    height: 56px;
-    width: 614px;
-    border: 1px solid #dbdbdb;
-    font-size: 16px;
-    padding-left: 15px;
+.post_comment {
+  margin: 10px;
 }
 
-.main_div img{
-    width: 615px;
-    margin-left: -13px;
-    height: 500px;
+.post_commentBox {
+  height: 56px;
+  width: 614px;
+  border: 1px solid #dbdbdb;
+  font-size: 16px;
+  padding-left: 15px;
 }
 
-.reportIcon{
-    width:20px;
-    height: 20px;
+.main_div img {
+  width: 615px;
+  margin-left: -13px;
+  height: 500px;
+  object-fit: contain;
 }
-.reportIcon img{
-    height: 30px;
-    margin-left: 400px;
-    margin-top: 25px;
+
+.reportIcon {
+  width: 20px;
+  height: 20px;
+}
+.reportIcon img {
+  height: 30px;
+  margin-left: 400px;
+  margin-top: 25px;
 }

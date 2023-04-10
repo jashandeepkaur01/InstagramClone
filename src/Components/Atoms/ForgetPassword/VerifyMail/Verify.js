@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { API } from "Shared/Constants";
 import { axiosInstance } from "Shared/Request";
-
+import { numberValidation } from "Shared/Utilities";
 function Verify() {
   const location = useLocation();
   let history = useHistory();
@@ -13,6 +13,8 @@ function Verify() {
   const [verifyCode, setVerifyCode] = useState("");
   const [Err, setErr] = useState(false);
   const [ErrMsg, setErrMsg] = useState("");
+  const [verifyCodeStatus, setVerifyCodeStatus] = useState(false);
+  const [verifyCodeErr, setVerifyCodeErr] = useState("");
   const handleOpenErrPopUp = () => {
     setErr(true);
   };
@@ -20,6 +22,7 @@ function Verify() {
     setErr(false);
   };
   const handleChange = (e) => {
+    setVerifyCodeStatus(false);
     setVerifyCode(e.target.value);
   };
 
@@ -30,15 +33,29 @@ function Verify() {
   };
 
   const verifyCodeBtn = (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("email", myparam);
     formData.append("otp", verifyCode);
+    if (verifyCode === "") {
+      setVerifyCodeErr("Otp is required");
+      setVerifyCodeStatus(true);
+      return;
+    }
+
+    if (!numberValidation(verifyCode)) {
+      setVerifyCodeErr("Otp should always be in number");
+      setVerifyCodeStatus(true);
+      return;
+    }
+
     axiosInstance
       .post(API.VERIFY, formData)
-      .then((res) => {
+      .then(() => {
         history.push("/login");
       })
       .catch((err) => {
+        console.log(err);
         setErrMsg(err.message);
         handleOpenErrPopUp();
       });
@@ -67,7 +84,12 @@ function Verify() {
             value={verifyCode}
             placeholder="Confirmation Code"
           />
+
+          <span className="text-danger">
+            {verifyCodeStatus ? verifyCodeErr : ""}
+          </span>
           <br />
+
           <button
             type="button"
             id="nextBtn2"

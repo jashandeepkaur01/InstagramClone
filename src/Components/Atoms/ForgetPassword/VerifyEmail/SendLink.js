@@ -1,11 +1,10 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
+import Modal from "react-bootstrap/Modal";
 import { useHistory } from "react-router-dom";
 import { API } from "Shared/Constants";
 import { axiosInstance } from "Shared/Request";
+import { emailValidation } from "Shared/Utilities";
 import "./SendLink.css";
-import Modal from "react-bootstrap/Modal";
-
 function SendLink() {
   const history = useHistory();
   const [show, setShow] = useState(false);
@@ -14,6 +13,8 @@ function SendLink() {
   const [email, setEmail] = useState("");
   const [Err, setErr] = useState(false);
   const [ErrMsg, setErrMsg] = useState("");
+  const [emailErr, setEmailErr] = useState("");
+  const [emailStatus, setEmailStatus] = useState(false);
   const handleOpenErrPopUp = () => {
     setErr(true);
   };
@@ -22,22 +23,30 @@ function SendLink() {
   };
   const handleChange = (e) => {
     setEmail(e.target.value);
+    setEmailStatus(false);
   };
-  const form = new FormData();
-  form.append("email", email);
 
   const handleSubmit = (e) => {
-    
-      axiosInstance
-        .post(API.FORGOTPASSWORD, form)
-        .then((res) => {
-          handleShow();
-        })
-        .catch((err) => {
-          setErrMsg(err.message);
-          handleOpenErrPopUp();
-        });
-    
+    const form = new FormData();
+    form.append("email", email);
+    if (email === "") {
+      setEmailErr("Email is required");
+      setEmailStatus(true);
+      return;
+    } else if (emailValidation(email)) {
+      setEmailErr("Invalid Email");
+      setEmailStatus(true);
+      return;
+    }
+    axiosInstance
+      .post(API.FORGOTPASSWORD, form)
+      .then((res) => {
+        handleShow();
+      })
+      .catch((err) => {
+        setErrMsg(err.message);
+        handleOpenErrPopUp();
+      });
   };
 
   return (
@@ -46,7 +55,8 @@ function SendLink() {
         <h2 className="header">User's Confirmation</h2>
 
         <input
-          id="input1" required
+          id="input1"
+          required
           className="form-control"
           type="email"
           name="email"
@@ -54,7 +64,7 @@ function SendLink() {
           placeholder="email"
         />
         <br />
-
+        <span className="text-danger">{emailStatus ? emailErr : ""}</span>
         <button
           id="linkBtn"
           type="button"

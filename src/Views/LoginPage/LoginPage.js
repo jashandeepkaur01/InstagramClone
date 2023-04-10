@@ -2,7 +2,6 @@ import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import appStore from "../../Images/images/app.png";
-import Fb from "../../Images/images/fb.png";
 import Insta_image from "../../Images/images/instaImg.svg";
 import Insta_logo from "../../Images/images/logoinsta.png";
 import playStore from "../../Images/images/play.png";
@@ -53,16 +52,6 @@ function LoginPage() {
                     <div className="login_divider"></div>
                     <div className="login_or">OR</div>
                     <div className="login_divider"></div>
-                  </div>
-
-                  <div className="login_fb">
-                    <img
-                      src={Fb}
-                      height="15px"
-                      style={{ marginRight: "5px" }}
-                      alt="Facebook"
-                    />
-                    Log in with Facebook
                   </div>
                   <div className="login_forgot" onClick={handleForgetPassword}>
                     Forgot Password?

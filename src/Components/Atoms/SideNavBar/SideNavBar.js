@@ -16,6 +16,15 @@ function Navbar() {
   const dispatch = useDispatch();
   const [Err, setErr] = useState(false);
   const [ErrMsg, setErrMsg] = useState("");
+  const [fileErr, setFileErr] = useState("");
+  const [fileStatus, setFileStatus] = useState(false);
+
+  useEffect(() => {
+    if (selectedImage) {
+      setImageUrl(URL.createObjectURL(selectedImage));
+    }
+  }, [selectedImage]);
+
   const handleOpenErrPopUp = () => {
     setErr(true);
   };
@@ -27,15 +36,24 @@ function Navbar() {
     history.push("/reel");
   };
 
-  useEffect(() => {
-    if (selectedImage) {
-      setImageUrl(URL.createObjectURL(selectedImage));
-    }
-  }, [selectedImage]);
+  const isValidFileUploaded = (file) => {
+    const validExtensions = ["png", "jpeg", "jpg"];
+    const fileExtension = file.type.split("/")[1];
+
+    return validExtensions.includes(fileExtension);
+  };
 
   const handleFileChange = (e) => {
-    if (e.target.files) {
+    if (e.target.files.length < 1) {
+      return;
+    }
+    const file = e.target.files[0];
+    if (isValidFileUploaded(file)) {
       setSelectedImage(e.target.files[0]);
+      setFileStatus(false);
+    } else {
+      setFileStatus(true);
+      setFileErr("Upload file in png/jpg/jpeg format");
     }
   };
   const handleShow = () => {
@@ -64,6 +82,9 @@ function Navbar() {
         payload: formData,
         success: (response) => {
           history.push("/home");
+          setSelectedImage("");
+          setDescription("");
+          setImageUrl("");
         },
         fail: (err) => {
           setErrMsg(err.message);
@@ -135,7 +156,13 @@ function Navbar() {
         </Modal.Header>
         <Modal.Body>
           <div className="selectDiv">
-            <input type="file" id="select-image" onChange={handleFileChange} />
+            <input
+              type="file"
+              id="select-image"
+              onChange={handleFileChange}
+              value={""}
+            />
+            {fileStatus ? fileErr : ""}
             <label>
               {imageUrl && selectedImage && (
                 <div textAlign="center">
@@ -144,12 +171,14 @@ function Navbar() {
                     alt={selectedImage.name}
                     className="selectedPost"
                   />
+
                   <textarea
                     placeholder="Add a description...."
                     onChange={handleDescriptionChange}
+                    value={description}
                   ></textarea>
                   <button className="nextBtn" onClick={handleNextClick}>
-                    Next
+                    Share
                   </button>
                 </div>
               )}
