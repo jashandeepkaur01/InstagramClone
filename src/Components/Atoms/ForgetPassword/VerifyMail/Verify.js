@@ -56,7 +56,7 @@ function Verify() {
       })
       .catch((err) => {
         console.log(err);
-        setErrMsg(err.message);
+        setErrMsg("Otp doesn't match");
         handleOpenErrPopUp();
       });
   };

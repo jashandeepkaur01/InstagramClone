@@ -4,7 +4,7 @@ export const STRINGS = {
     "You appear to be offline. Please check your internet connection.",
 };
 
-export const baseURL = "https://bf4e-122-160-165-213.ngrok-free.app/";
+export const baseURL = "https://33a1-122-160-165-213.ngrok-free.app/";
 
 export const API = {
   LOGIN: baseURL + "login/",
@@ -38,3 +38,15 @@ export const reportReasons = [
 export const regex = /^[A-Za-z0-9+_.]{3,}@[A_Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/;
 
 export const numberRegex = /^[0-9]+$/;
+
+export const emojis = {
+  people: ["😀", "😁", "😂", "😅", "😆"],
+};
+
+export const emojiColors = [
+  "#b7e887",
+  "#b5e0fe",
+  "#f9ef67",
+  "#f3c1fd",
+  "#ffe1ae",
+];

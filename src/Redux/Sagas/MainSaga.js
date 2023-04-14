@@ -1,7 +1,7 @@
-
-import { takeLatest, put, all } from "redux-saga/effects";
+import { all, put, takeLatest } from "redux-saga/effects";
 import { LOGOUT } from "Redux/Actions/Auth";
 import {
+  setCommentData,
   setData,
   setLikesData,
   setLoginData,
@@ -28,10 +28,9 @@ function* showData(payload) {
   try {
     const response = yield axiosInstance.get(API.POST, payload.data);
     yield put(setData(response?.data?.data));
-   
   } catch (error) {
     if (payload && payload?.fail) {
-      payload.fail(error.response.data.message)
+      payload.fail(error.response.data.message);
     }
   }
 }
@@ -67,7 +66,6 @@ function* logoutCall({ data: { success, fail } }) {
 function* reportCall({ data: { payload, success, fail } }) {
   try {
     const response = yield axiosInstance.post(API.REPORT, payload);
-    console.log("response", response);
     if (success) {
       success(response);
     }
@@ -80,7 +78,6 @@ function* reportCall({ data: { payload, success, fail } }) {
 
 function* uploadDataCall({ data: { payload, success, fail } }) {
   try {
-    
     const response = yield axiosInstance.post(API.POST, payload);
     if (success) {
       success(response);
@@ -94,7 +91,7 @@ function* uploadDataCall({ data: { payload, success, fail } }) {
 
 function* resendOTPCall({ data: { payload, success, fail } }) {
   try {
-    const response = yield axiosInstance.post(API.RESEND,payload);
+    const response = yield axiosInstance.post(API.RESEND, payload);
     if (success) {
       success(response);
     }
@@ -105,66 +102,61 @@ function* resendOTPCall({ data: { payload, success, fail } }) {
   }
 }
 
-function* likeCall({data:{payload,success,fail}})
-{
-  try{
- 
-    const response = yield axiosInstance.post(API.LIKES,payload);
-    
-    if(success){
-      
+function* likeCall({ data: { payload, success, fail } }) {
+  try {
+    const response = yield axiosInstance.post(API.LIKES, payload);
+
+    if (success) {
       yield put(setLikesData(response?.data));
       success(response);
     }
-  }catch(error){
-    if(fail){
-      fail(error.response.data.message)
-    }
-  }
-}
-function* commentCall({data:{payload,success,fail}}){
-  try{
-    
-    const response = yield axiosInstance.post(API.COMMENT,payload);
-    if(success){
-      success(response)
-    }
-  }
-  catch(error){
-    if(fail){
+  } catch (error) {
+    if (fail) {
       fail(error.response.data.message);
     }
   }
 }
-
-function* getCommentsCall({data:{payload,success,fail}}){
-  try{
-    
-    const response = yield axiosInstance.get(API.COMMENT,{
-      params:{
-        pk:payload
-      }
-    })
-  
-    if(success){
-      success(response)
-    }
-  }
-  catch(error){
-    if(fail){
-      fail(error.response.data.message);
-    }
-  }
-}
-
-function* getReels(payload){
+function* commentCall({ data: { payload, success, fail } }) {
   try {
+    const response = yield axiosInstance.post(API.COMMENT, payload);
+    if (success) {
+      success(response);
+    }
+  } catch (error) {
+    if (fail) {
+      fail(error.response.data.message);
+    }
+  }
+}
+
+function* getCommentsCall({ data: { payload, success, fail } }) {
+  try {
+    const response = yield axiosInstance.get(API.COMMENT, {
+      params: {
+        pk: payload,
+      },
+    });
+
+    if (success) {
+      success(response);
+
+      yield put(setCommentData(response?.data?.comments));
+    }
+  } catch (error) {
+    if (fail) {
+      fail(error?.response?.data?.message);
+    }
+  }
+}
+
+function* getReels(payload) {
+  try {
+    debugger;
     const response = yield axiosInstance.get(API.REEL, payload.data);
     yield put(setReelsData(response?.data?.data));
-   
   } catch (error) {
     if (payload && payload?.fail) {
-      payload.fail(error.response.data.message)
+      payload.fail(error.response.data.message);
     }
   }
 }
@@ -176,10 +168,10 @@ function* Saga() {
     yield takeLatest(REPORTDATA, reportCall),
     yield takeLatest(UPLOADDATA, uploadDataCall),
     yield takeLatest(RESENDOTP, resendOTPCall),
-    yield takeLatest(LIKE,likeCall),
-    yield takeLatest(POSTCOMMENT,commentCall),
-    yield takeLatest(GETCOMMENTS,getCommentsCall),
-    yield takeLatest(REEL,getReels)
+    yield takeLatest(LIKE, likeCall),
+    yield takeLatest(POSTCOMMENT, commentCall),
+    yield takeLatest(GETCOMMENTS, getCommentsCall),
+    yield takeLatest(REEL, getReels),
   ]);
 }
 

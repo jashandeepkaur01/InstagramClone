@@ -1,14 +1,14 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
-import { updateAuthToken } from "Shared/Axios";
 import AppLayout from "Components/Core/AppLayout";
-import { AUTH_ROUTES } from "./AuthRoutes";
-import { PUBLIC_ROUTES } from "./PublicRoutes";
-import { PRIVATE_ROUTES } from "./PrivateRoutes";
-import DocumentTitle from "./DocumentTitle";
 import PublicLayout from "Components/Core/PublicLayout";
+import { updateAuthToken } from "Shared/Axios";
+import AuthLayout from "./AuthLayout";
+import { AUTH_ROUTES } from "./AuthRoutes";
+import DocumentTitle from "./DocumentTitle";
+import { PRIVATE_ROUTES } from "./PrivateRoutes";
+import { PUBLIC_ROUTES } from "./PublicRoutes";
 import RenderRoutes from "./RenderRoutes";
 const DEFAULT_GUEST_ROUTE = "/login";
 
@@ -51,7 +51,13 @@ const RootRouter = () => {
     <BrowserRouter basename={baseName}>
       <DocumentTitle isAuthenticated={isAuthenticated} />
       <AppLayout isAuthenticated={isAuthenticated}>
-        {token ? <AuthenticatedRoutes /> : <GuestRoutes />}
+        {token ? (
+          <AuthLayout>
+            <AuthenticatedRoutes />
+          </AuthLayout>
+        ) : (
+          <GuestRoutes />
+        )}
       </AppLayout>
     </BrowserRouter>
   );

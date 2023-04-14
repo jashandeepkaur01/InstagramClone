@@ -1,12 +1,11 @@
 import { Grid } from "@mui/material";
+import NavBar from "Components/Atoms/NavBar/NavBar";
 import SideNavBar from "Components/Atoms/SideNavBar/SideNavBar";
-import Info from "Views/Info_Section/Info";
-import Reels from "../Reels/Reels";
-
-function Content() {
+function AuthLayout({ children }) {
   return (
     <div>
       <div>
+        <NavBar />
         <Grid container>
           <Grid item xs={2}>
             <div>
@@ -14,13 +13,9 @@ function Content() {
             </div>
           </Grid>
           <Grid item xs={6}>
-            <div>
-              <Reels />
-            </div>
+            <div>{children}</div>
           </Grid>
-          <Grid item xs={2}>
-            <Info />
-          </Grid>
+          <Grid item xs={2}></Grid>
           <Grid item xs={2}></Grid>
         </Grid>
       </div>
@@ -28,4 +23,4 @@ function Content() {
   );
 }
 
-export default Content;
+export default AuthLayout;

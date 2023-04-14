@@ -1,29 +1,23 @@
 import { Avatar } from "@mui/material";
+import { like, postComment, reportData } from "Redux/Actions/feedPageActions";
+import { baseURL, emojis, reportReasons } from "Shared/Constants";
+import CommentSec from "Views/CommentSection/CommentSec";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-  getComment,
-  like,
-  postComment,
-  reportData,
-} from "Redux/Actions/feedPageActions";
-import { baseURL, reportReasons } from "Shared/Constants";
 import likes from "../../Images/images/likes.png";
 import love from "../../Images/images/love.svg";
 import Comment from "../../Images/images/message.svg";
 import ReportIcon from "../../Images/images/option.png";
-import share from "../../Images/images/share.svg";
 import "./Post.css";
-
 function Post() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [Err, setErr] = useState(false);
   const [ErrMsg, setErrMsg] = useState("");
   const [comment, setComment] = useState("");
-  const [commentArr, setCommmentArr] = useState([]);
+  const [postData, setPostData] = useState([]);
   const [commentErrStatus, setCommentErrStatus] = useState(false);
   const [commentErr, setCommentErr] = useState("");
 
@@ -37,7 +31,8 @@ function Post() {
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showCommentBox, setCommentBox] = useState(false);
-
+  const [showReactIcon, setReactIcon] = useState(false);
+  const [data, setData] = useState([]);
   const handleShow = () => {
     setShow(true);
   };
@@ -51,7 +46,8 @@ function Post() {
     setShowModal(false);
   };
 
-  const handleReportIcon = (e) => {
+  const handleReportIcon = (data) => {
+    setPostData(data);
     handleShow();
   };
   const openCommentBox = () => {
@@ -72,7 +68,7 @@ function Post() {
     dispatch(
       reportData({
         payload: form,
-        success: (response) => {
+        success: () => {
           history.push("/home");
         },
         fail: (err) => {
@@ -91,7 +87,7 @@ function Post() {
     dispatch(
       like({
         payload: form,
-        success: (response) => {},
+        success: () => {},
         fail: (err) => {
           setErrMsg(err.response.data.message);
           handleOpenErrPopUp();
@@ -117,7 +113,7 @@ function Post() {
     dispatch(
       postComment({
         payload: formdata,
-        success: (response) => {
+        success: () => {
           setComment("");
         },
         fail: (err) => {
@@ -128,146 +124,149 @@ function Post() {
     );
   };
   const handleComment = (item) => {
-    openCommentBox();
+    openCommentBox(item);
+    setData(item);
+  };
 
-    dispatch(
-      getComment({
-        payload: item.id,
-        success: (response) => {
-          setCommmentArr(response?.data?.comments);
-        },
-        fail: (err) => {
-          setErrMsg(err.response.data.mesage);
-          handleOpenErrPopUp();
-        },
-      })
-    );
+  const handleReactionClick = () => {
+    !showReactIcon ? setReactIcon(true) : setReactIcon(false);
   };
   return (
-    <div id="container_main_div" className="container">
-      {ImagesData?.map((item, idx) => {
-        return (
-          <div key={idx} className="main_content">
-            <div className="post_header">
-              <Avatar className="post_img" src="" />
-              <div className="post_username">Username</div>
-              <div className="reportIcon">
-                <img onClick={handleReportIcon} src={ReportIcon} alt="report" />
+    <>
+      <div id="container_main_div" className="container">
+        {ImagesData?.map((item, idx) => {
+          return (
+            <div key={idx} className="main_content">
+              <div className="post_header">
+                <Avatar className="post_img" src="" />
+                <div className="post_username">{item.username}</div>
+                <div className="reportIcon">
+                  <img
+                    onClick={() => handleReportIcon(item)}
+                    src={ReportIcon}
+                    alt="report"
+                  />
+                </div>
               </div>
-              <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <h2>Report</h2>
-                </Modal.Header>
-                <Modal.Body>
-                  <div>
-                    <b>Why are you report this post?</b>
-                  </div>
-                  <hr />
-                  {reportReasons.map((data, idx) => {
-                    return (
-                      <>
-                        <div
-                          key={idx}
-                          onClick={() => handleReportAction(item, idx + 1)}
-                        >
-                          {data}
-                        </div>
-                        <hr />
-                      </>
-                    );
-                  })}
-                </Modal.Body>
-                <Modal.Footer>
-                  <button onClick={handleClose}>Close</button>
-                </Modal.Footer>
-              </Modal>
+              <div className="main_div">
+                <img src={baseURL + item.Image} alt="post" />
+              </div>
+              <div className="discription">
+                <p>{item.Description}</p>
+              </div>
+              <div style={{ marginLeft: "10px" }}>
+                {item.is_liked ? (
+                  <img
+                    src={likes}
+                    className="post_reactImg"
+                    onClick={() => handleLikeClick(item)}
+                    alt="likes"
+                  />
+                ) : (
+                  <img
+                    src={love}
+                    className="post_reactImg"
+                    onClick={() => handleLikeClick(item)}
+                    alt="like"
+                  />
+                )}
+                <img
+                  src={Comment}
+                  onClick={() => handleComment(item)}
+                  alt="comment"
+                  className="post_reactImg"
+                />
+                {showReactIcon ? emojis.people : ""}
+                <div className="post_reactImg" onClick={handleReactionClick}>
+                  😊
+                </div>
+              </div>
+              <div style={{ fontWeight: "bold", marginLeft: "20px" }}>
+                {item.LikeCount}
+              </div>
+              <div>
+                <input
+                  required
+                  type="text"
+                  className="post_commentBox"
+                  placeholder="Add a comment..."
+                  onChange={handleCommentInput}
+                  value={comment}
+                />
+                <button
+                  className="commentBtn"
+                  onClick={() => handleCommentSection(item.id)}
+                >
+                  Send
+                </button>
+                <span className="text-danger">
+                  {commentErrStatus ? commentErr : ""}
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
 
-              <Modal show={showModal} onHide={handleCloseModal}>
-                <Modal.Body>
-                  <h2>Reported!</h2>
-                </Modal.Body>
-                <Modal.Footer>
-                  <button onClick={handleCloseModal}>Ok</button>
-                </Modal.Footer>
-              </Modal>
-            </div>
-            <div className="main_div">
-              <img src={baseURL + item.Image} alt="post" />
-            </div>
-            <div className="discription">
-              <p>{item.Description}</p>
-            </div>
-            <div style={{ marginLeft: "10px" }}>
-              {item.is_liked ? (
-                <img
-                  src={likes}
-                  className="post_reactImg"
-                  onClick={() => handleLikeClick(item)}
-                  alt="likes"
-                />
-              ) : (
-                <img
-                  src={love}
-                  className="post_reactImg"
-                  onClick={() => handleLikeClick(item)}
-                  alt="like"
-                />
-              )}
-              <img
-                src={Comment}
-                onClick={() => handleComment(item)}
-                alt="comment"
-                className="post_reactImg"
-              />
-              <Modal show={showCommentBox} onHide={closeCommentBox}>
-                <Modal.Header closeButton>
-                  <h2>Comments</h2>
-                </Modal.Header>
-                <Modal.Body>
-                  {commentArr.map((val) => {
-                    return <div key={val.id}>{val.Comment}</div>;
-                  })}
-                </Modal.Body>
-                <Modal.Footer>
-                  <button onClick={closeCommentBox}>close</button>
-                </Modal.Footer>
-              </Modal>
-              <img src={share} className="post_reactImg" alt="share" />
-            </div>
-            <div style={{ fontWeight: "bold", marginLeft: "20px" }}>
-              {item.LikeCount}
-            </div>
-            <div>
-              <input
-                required
-                type="text"
-                className="post_commentBox"
-                placeholder="Add a comment..."
-                onChange={handleCommentInput}
-                value={comment}
-              />
-              <button
-                className="commentBtn"
-                onClick={() => handleCommentSection(item.id)}
-              >
-                Send
-              </button>
-              <span className="text-danger">
-                {commentErrStatus ? commentErr : ""}
-              </span>
-            </div>
-            <Modal show={Err} onHide={handleCloseErrPopUp}>
-              <Modal.Body>
-                <h2>{ErrMsg}</h2>
-              </Modal.Body>
-              <Modal.Footer>
-                <button onClick={handleCloseErrPopUp}>Ok</button>
-              </Modal.Footer>
-            </Modal>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <h2>Report</h2>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            <b>Why are you report this post?</b>
           </div>
-        );
-      })}
-    </div>
+          <hr />
+          {reportReasons.map((data, idx) => {
+            return (
+              <>
+                <div
+                  className="reportDiv"
+                  key={idx}
+                  onClick={() => handleReportAction(postData, idx + 1)}
+                >
+                  {data}
+                </div>
+                <hr />
+              </>
+            );
+          })}
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleClose}>Close</button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Body>
+          <h2>Reported!</h2>
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleCloseModal}>Ok</button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={Err} onHide={handleCloseErrPopUp}>
+        <Modal.Body>
+          <h2>{ErrMsg}</h2>
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleCloseErrPopUp}>Ok</button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showCommentBox} onHide={closeCommentBox}>
+        <Modal.Header closeButton>
+          <h2>Comments</h2>
+        </Modal.Header>
+        <Modal.Body>
+          <CommentSec data={data} />
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={closeCommentBox}>close</button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 }
 

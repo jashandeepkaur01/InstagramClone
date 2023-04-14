@@ -1,8 +1,8 @@
+import { uploadData } from "Redux/Actions/feedPageActions";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { uploadData } from "Redux/Actions/feedPageActions";
 import Insta_logo from "../../../Images/images/logoinsta.png";
 import "./SideNavBar.css";
 
@@ -102,7 +102,11 @@ function Navbar() {
       </h1>
       <ul className="listing">
         <li className="l1">
-          <button type="button" className="sideNavButton">
+          <button
+            type="button"
+            className="sideNavButton"
+            onClick={() => history.push("/home")}
+          >
             Home
           </button>
         </li>
@@ -145,7 +149,13 @@ function Navbar() {
           </button>
         </li>
         <li className="l1">
-          <button type="button" className="sideNavButton">
+          <button
+            type="button"
+            className="sideNavButton"
+            onClick={() => {
+              history.push("/profile");
+            }}
+          >
             Profile
           </button>
         </li>

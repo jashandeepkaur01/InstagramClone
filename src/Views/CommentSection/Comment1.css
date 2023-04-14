@@ -1,0 +1,9 @@
+.commentList {
+  margin: 2px;
+}
+
+.commentList button {
+  text-decoration: none;
+  color: #dbdbdb;
+  cursor: pointer;
+}

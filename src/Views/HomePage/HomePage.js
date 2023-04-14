@@ -1,20 +1,23 @@
+import StatusBar from "Components/Atoms/StatusBar/StatusBar";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getData } from "Redux/Actions/feedPageActions";
-import NavBar from "../../Components/Atoms/NavBar/NavBar";
-import MainContent from "../MainContent/MainContent";
+import { getData, reels } from "Redux/Actions/feedPageActions";
+import Post from "Views/Post/Post";
 
 function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getData());
-  }, []);
+    setTimeout(() => {
+      dispatch(getData());
+      dispatch(reels());
+    }, 1000);
+  }, [dispatch]);
 
   return (
     <div>
-      <NavBar />
-      <MainContent />
+      <StatusBar />
+      <Post />
     </div>
   );
 }

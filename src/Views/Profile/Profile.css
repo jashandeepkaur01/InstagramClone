@@ -1,0 +1,21 @@
+.profile_container {
+  display: flex;
+}
+
+.profile_photo_div {
+  width: 50%;
+  height: 200px;
+  border: 1px solid #dbdbdb;
+  justify-content: center;
+  padding-left: 80px;
+  padding-top: 50px;
+}
+
+.profile_info_div {
+  width: 80%;
+  height: 200px;
+  border: 1px solid #dbdbdb;
+}
+
+.profile_image {
+}

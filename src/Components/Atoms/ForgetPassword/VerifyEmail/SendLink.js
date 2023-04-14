@@ -8,13 +8,17 @@ import "./SendLink.css";
 function SendLink() {
   const history = useHistory();
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
   const [email, setEmail] = useState("");
   const [Err, setErr] = useState(false);
   const [ErrMsg, setErrMsg] = useState("");
   const [emailErr, setEmailErr] = useState("");
   const [emailStatus, setEmailStatus] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
   const handleOpenErrPopUp = () => {
     setErr(true);
   };
@@ -33,18 +37,18 @@ function SendLink() {
       setEmailErr("Email is required");
       setEmailStatus(true);
       return;
-    } else if (emailValidation(email)) {
+    } else if (!emailValidation(email)) {
       setEmailErr("Invalid Email");
       setEmailStatus(true);
       return;
     }
     axiosInstance
       .post(API.FORGOTPASSWORD, form)
-      .then((res) => {
+      .then(() => {
         handleShow();
       })
       .catch((err) => {
-        setErrMsg(err.message);
+        setErrMsg("Email not regristered");
         handleOpenErrPopUp();
       });
   };
