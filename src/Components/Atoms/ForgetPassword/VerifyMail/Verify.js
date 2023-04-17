@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import { resendOTP } from "Redux/Actions/feedPageActions";
 import { API } from "Shared/Constants";
 import { axiosInstance } from "Shared/Request";
 import { numberValidation } from "Shared/Utilities";
@@ -29,7 +30,16 @@ function Verify() {
   const handleResendOtp = () => {
     const formData = new FormData();
     formData.append("email", myparam);
-    dispatch();
+    dispatch(
+      resendOTP({
+        payload: formData,
+        success: (res) => {},
+        fail: (err) => {
+          setErrMsg(err.response.data.message);
+          handleOpenErrPopUp();
+        },
+      })
+    );
   };
 
   const verifyCodeBtn = (e) => {

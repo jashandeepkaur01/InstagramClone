@@ -37,7 +37,7 @@ function Navbar() {
   };
 
   const isValidFileUploaded = (file) => {
-    const validExtensions = ["png", "jpeg", "jpg"];
+    const validExtensions = ["png", "jpeg", "jpg", "mp3", "mp4"];
     const fileExtension = file.type.split("/")[1];
 
     return validExtensions.includes(fileExtension);
@@ -163,15 +163,15 @@ function Navbar() {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
           <h2>Create Post</h2>
+          <input
+            type="file"
+            id="select-image"
+            onChange={handleFileChange}
+            value={""}
+          />
         </Modal.Header>
         <Modal.Body>
           <div className="selectDiv">
-            <input
-              type="file"
-              id="select-image"
-              onChange={handleFileChange}
-              value={""}
-            />
             {fileStatus ? fileErr : ""}
             <label>
               {imageUrl && selectedImage && (

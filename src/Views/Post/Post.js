@@ -1,6 +1,7 @@
 import { Avatar } from "@mui/material";
 import { like, postComment, reportData } from "Redux/Actions/feedPageActions";
-import { baseURL, emojis, reportReasons } from "Shared/Constants";
+import { baseURL, reportReasons } from "Shared/Constants";
+import { isValidFileUploaded } from "Shared/Utilities";
 import CommentSec from "Views/CommentSection/CommentSec";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
@@ -131,6 +132,30 @@ function Post() {
   const handleReactionClick = () => {
     !showReactIcon ? setReactIcon(true) : setReactIcon(false);
   };
+
+  const checkextension = (image) => {
+    if (isValidFileUploaded(image)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handleEmoji = (post_id, like_id) => {
+    const form = new FormData();
+    form.append("post_id", post_id);
+    form.append("like_id", like_id);
+    dispatch(
+      like({
+        payload: form,
+        success: () => {},
+        fail: (err) => {
+          setErrMsg(err.response.data.message);
+          handleOpenErrPopUp();
+        },
+      })
+    );
+  };
   return (
     <>
       <div id="container_main_div" className="container">
@@ -149,8 +174,21 @@ function Post() {
                 </div>
               </div>
               <div className="main_div">
-                <img src={baseURL + item.Image} alt="post" />
+                {!checkextension(item.Image) ? (
+                  <video
+                    style={{ width: "100%" }}
+                    src={baseURL + item.Image}
+                    alt="reel"
+                    type="video/mp4"
+                    controls
+                    autoPlay
+                    muted
+                  />
+                ) : (
+                  <img src={baseURL + item.Image} alt="post" />
+                )}
               </div>
+              {console.log(item)}
               <div className="discription">
                 <p>{item.Description}</p>
               </div>
@@ -176,7 +214,18 @@ function Post() {
                   alt="comment"
                   className="post_reactImg"
                 />
-                {showReactIcon ? emojis.people : ""}
+                {showReactIcon ? (
+                  <div className="emoji_div">
+                    <div onClick={() => handleEmoji(item.id, 2)}>😂</div>
+                    <div onClick={() => handleEmoji(item.id, 3)}>😆</div>
+                    <div onClick={() => handleEmoji(item.id, 4)}>🤩</div>
+                    <div onClick={() => handleEmoji(item.id, 5)}>😀</div>
+                    <div onClick={() => handleEmoji(item.id, 6)}>🤣</div>
+                  </div>
+                ) : (
+                  ""
+                )}
+
                 <div className="post_reactImg" onClick={handleReactionClick}>
                   😊
                 </div>
