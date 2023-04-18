@@ -24,32 +24,8 @@ export default function CommentSec(data) {
 
   function addReply(commentId, replyText) {
     let commentsWithNewReply = [...comments];
-    // insertComment(commentsWithNewReply, commentId, replyText);
     setComments(commentsWithNewReply);
   }
-
-  // function newComment(text) {
-  //   return {
-  //     id: new Date().getTime(),
-  //     Comment: text,
-  //     child: [],
-  //     post_id: data.data.id,
-  //   };
-  // }
-
-  // function insertComment(comments, parentId, text) {
-  //   for (let i = 0; i < comments.length; i++) {
-  //     let comment = comments[i];
-  //     if (comment.id === parentId) {
-  //       comment.child.unshift(newComment(text));
-  //     }
-  //   }
-
-  //   for (let i = 0; i < comments.length; i++) {
-  //     let comment = comments[i];
-  //     insertComment(comment.child, parentId, text);
-  //   }
-  // }
 
   return (
     <>

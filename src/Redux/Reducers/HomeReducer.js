@@ -12,6 +12,7 @@ const initialData = {
   loginData: [],
   reelData: [],
   commentData: [],
+  totalPost: 10,
 };
 
 const HomeReducer = (data = initialData, action) => {
@@ -20,7 +21,15 @@ const HomeReducer = (data = initialData, action) => {
       return data;
 
     case SETDATA:
-      return { ...data, feedData: action?.data?.map((data) => ({ ...data })) };
+      return {
+        ...data,
+        feedData: [
+          ...data.feedData,
+          ...action?.data?.data?.map((data) => ({ ...data })),
+        ],
+
+        totalPost: action?.data?.count,
+      };
 
     case LOGINDATA:
       return data;

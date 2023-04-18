@@ -110,7 +110,7 @@ function Navbar() {
             Home
           </button>
         </li>
-        <li className="l1">
+        {/* <li className="l1">
           <button type="button" className="sideNavButton">
             Search
           </button>
@@ -119,7 +119,7 @@ function Navbar() {
           <button type="button" className="sideNavButton">
             Explore
           </button>
-        </li>
+        </li> */}
         <li className="l1">
           <button
             onClick={handleReelSection}
@@ -129,7 +129,7 @@ function Navbar() {
             Reels
           </button>
         </li>
-        <li className="l1">
+        {/* <li className="l1">
           <button type="button" className="sideNavButton">
             Messages
           </button>
@@ -138,7 +138,7 @@ function Navbar() {
           <button type="button" className="sideNavButton">
             Notifications
           </button>
-        </li>
+        </li> */}
         <li className="l1">
           <button
             type="button"

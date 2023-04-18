@@ -1,9 +1,15 @@
 import { Avatar } from "@mui/material";
-import { like, postComment, reportData } from "Redux/Actions/feedPageActions";
+import usePagination from "Hooks/PaginationHook";
+import {
+  getData,
+  like,
+  postComment,
+  reportData,
+} from "Redux/Actions/feedPageActions";
 import { baseURL, reportReasons } from "Shared/Constants";
 import { isValidFileUploaded } from "Shared/Utilities";
 import CommentSec from "Views/CommentSection/CommentSec";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -13,7 +19,19 @@ import Comment from "../../Images/images/message.svg";
 import ReportIcon from "../../Images/images/option.png";
 import "./Post.css";
 function Post() {
+  const TotalPost = useSelector((state) => state?.HomeReducer?.totalPost);
   const dispatch = useDispatch();
+  const [page] = usePagination(TotalPost);
+  const ImagesData = useSelector((state) => state?.HomeReducer?.feedData);
+
+  useEffect(() => {
+    setTimeout(() => {
+      // if (Math.ceil(TotalPost / 5) !== page) {
+      dispatch(getData(page));
+      // }
+    }, 1000);
+  }, [dispatch, page]);
+
   const history = useHistory();
   const [Err, setErr] = useState(false);
   const [ErrMsg, setErrMsg] = useState("");
@@ -28,7 +46,7 @@ function Post() {
   const handleCloseErrPopUp = () => {
     setErr(false);
   };
-  const ImagesData = useSelector((state) => state?.HomeReducer?.feedData);
+
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showCommentBox, setCommentBox] = useState(false);
@@ -148,7 +166,9 @@ function Post() {
     dispatch(
       like({
         payload: form,
-        success: () => {},
+        success: () => {
+          setReactIcon(false);
+        },
         fail: (err) => {
           setErrMsg(err.response.data.message);
           handleOpenErrPopUp();
@@ -173,6 +193,7 @@ function Post() {
                   />
                 </div>
               </div>
+              {console.log("imagesData", item)}
               <div className="main_div">
                 {!checkextension(item.Image) ? (
                   <video
@@ -188,7 +209,7 @@ function Post() {
                   <img src={baseURL + item.Image} alt="post" />
                 )}
               </div>
-              {console.log(item)}
+
               <div className="discription">
                 <p>{item.Description}</p>
               </div>
@@ -214,7 +235,7 @@ function Post() {
                   alt="comment"
                   className="post_reactImg"
                 />
-                {showReactIcon ? (
+                {/* {showReactIcon ? (
                   <div className="emoji_div">
                     <div onClick={() => handleEmoji(item.id, 2)}>😂</div>
                     <div onClick={() => handleEmoji(item.id, 3)}>😆</div>
@@ -224,11 +245,11 @@ function Post() {
                   </div>
                 ) : (
                   ""
-                )}
+                )} */}
 
-                <div className="post_reactImg" onClick={handleReactionClick}>
+                {/* <div className="post_reactImg" onClick={handleReactionClick}>
                   😊
-                </div>
+                </div> */}
               </div>
               <div style={{ fontWeight: "bold", marginLeft: "20px" }}>
                 {item.LikeCount}

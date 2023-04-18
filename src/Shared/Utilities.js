@@ -46,7 +46,7 @@ export const numberValidation = (number) => {
 export const isValidFileUploaded = (file) => {
   const validExtensions = ["png", "jpeg", "jpg"];
 
-  let fileExtension = file.split(".");
+  let fileExtension = file?.split(".");
   fileExtension = fileExtension[1];
   return validExtensions.includes(fileExtension);
 };

@@ -7,13 +7,6 @@ import Post from "Views/Post/Post";
 function Home() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(getData());
-      dispatch(reels());
-    }, 1000);
-  }, [dispatch]);
-
   return (
     <div>
       <StatusBar />

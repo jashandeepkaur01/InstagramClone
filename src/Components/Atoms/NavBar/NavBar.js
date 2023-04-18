@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
+import { logOut } from "Redux/Actions/feedPageActions";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { logOut } from "Redux/Actions/feedPageActions";
 import find from "../../../Images/images/find.svg";
 import home from "../../../Images/images/home.svg";
 import insta_logo from "../../../Images/images/logoinsta.png";
@@ -20,7 +20,7 @@ function NavBar() {
   const handleLogoutAction = () => {
     dispatch(
       logOut({
-        success: (response) => {
+        success: () => {
           localStorage.clear();
           history.push("/login");
         },
@@ -51,7 +51,15 @@ function NavBar() {
             ></input>
           </Grid>
           <Grid item xs={3} style={{ display: "flex" }}>
-            <img className="NavBar_img" src={home} width="25px" alt="home" />
+            <img
+              className="NavBar_img"
+              src={home}
+              width="25px"
+              alt="home"
+              onClick={() => {
+                history.push("/home");
+              }}
+            />
             <img
               className="NavBar_img"
               src={message}
