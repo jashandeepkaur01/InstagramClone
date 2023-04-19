@@ -12,7 +12,8 @@ const initialData = {
   loginData: [],
   reelData: [],
   commentData: [],
-  totalPost: 10,
+  totalPost: 0,
+  totalReels: 0,
 };
 
 const HomeReducer = (data = initialData, action) => {
@@ -51,7 +52,14 @@ const HomeReducer = (data = initialData, action) => {
         commentData: action?.data?.map((data) => ({ ...data })),
       };
     case SETREELSDATA:
-      return { ...data, reelData: action?.data?.map((data) => ({ ...data })) };
+      return {
+        ...data,
+        reelData: [
+          ...data.reelData,
+          ...action?.data?.data?.map((data) => ({ ...data })),
+        ],
+        totalReels: action?.data?.total,
+      };
 
     default:
       return data;

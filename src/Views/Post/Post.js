@@ -1,3 +1,4 @@
+import { ReactionBarSelector } from "@charkour/react-reactions";
 import { Avatar } from "@mui/material";
 import usePagination from "Hooks/PaginationHook";
 import {
@@ -6,7 +7,7 @@ import {
   postComment,
   reportData,
 } from "Redux/Actions/feedPageActions";
-import { baseURL, reportReasons } from "Shared/Constants";
+import { Reactions, baseURL, reportReasons } from "Shared/Constants";
 import { isValidFileUploaded } from "Shared/Utilities";
 import CommentSec from "Views/CommentSection/CommentSec";
 import { useEffect, useState } from "react";
@@ -26,9 +27,9 @@ function Post() {
 
   useEffect(() => {
     setTimeout(() => {
-      // if (Math.ceil(TotalPost / 5) !== page) {
-      dispatch(getData(page));
-      // }
+      if (Math.ceil(TotalPost / 5) !== page) {
+        dispatch(getData(page));
+      }
     }, 1000);
   }, [dispatch, page]);
 
@@ -193,9 +194,10 @@ function Post() {
                   />
                 </div>
               </div>
-              {console.log("imagesData", item)}
               <div className="main_div">
-                {!checkextension(item.Image) ? (
+                {checkextension(item.Image) ? (
+                  <img src={baseURL + item.Image} alt="post" />
+                ) : (
                   <video
                     style={{ width: "100%" }}
                     src={baseURL + item.Image}
@@ -205,8 +207,6 @@ function Post() {
                     autoPlay
                     muted
                   />
-                ) : (
-                  <img src={baseURL + item.Image} alt="post" />
                 )}
               </div>
 
@@ -235,21 +235,17 @@ function Post() {
                   alt="comment"
                   className="post_reactImg"
                 />
-                {/* {showReactIcon ? (
-                  <div className="emoji_div">
-                    <div onClick={() => handleEmoji(item.id, 2)}>😂</div>
-                    <div onClick={() => handleEmoji(item.id, 3)}>😆</div>
-                    <div onClick={() => handleEmoji(item.id, 4)}>🤩</div>
-                    <div onClick={() => handleEmoji(item.id, 5)}>😀</div>
-                    <div onClick={() => handleEmoji(item.id, 6)}>🤣</div>
-                  </div>
+                {showReactIcon ? (
+                  <ReactionBarSelector
+                    reactions={Reactions}
+                    // onSelect={ReactionCounter}
+                  />
                 ) : (
                   ""
-                )} */}
-
-                {/* <div className="post_reactImg" onClick={handleReactionClick}>
+                )}
+                <div className="post_reactImg" onClick={handleReactionClick}>
                   😊
-                </div> */}
+                </div>
               </div>
               <div style={{ fontWeight: "bold", marginLeft: "20px" }}>
                 {item.LikeCount}

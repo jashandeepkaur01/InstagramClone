@@ -1,8 +1,14 @@
 import { Avatar } from "@mui/material";
-import { like, postComment, reportData } from "Redux/Actions/feedPageActions";
-import { baseURL, emojis, reportReasons } from "Shared/Constants";
+import usePagination from "Hooks/PaginationHook";
+import {
+  like,
+  postComment,
+  reels,
+  reportData,
+} from "Redux/Actions/feedPageActions";
+import { baseURL, reportReasons } from "Shared/Constants";
 import CommentSec from "Views/CommentSection/CommentSec";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -11,6 +17,7 @@ import love from "../../../Images/images/love.svg";
 import Comment from "../../../Images/images/message.svg";
 import ReportIcon from "../../../Images/images/option.png";
 import "../../Post/Post.css";
+
 function Reels() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -20,6 +27,16 @@ function Reels() {
   const [postData, setPostData] = useState([]);
   const [commentErrStatus, setCommentErrStatus] = useState(false);
   const [commentErr, setCommentErr] = useState("");
+  const ReelsData = useSelector((state) => state?.HomeReducer?.reelData);
+  const TotalReels = useSelector((state) => state?.HomeReducer?.totalReels);
+  const [page] = usePagination(TotalReels);
+  useEffect(() => {
+    setTimeout(() => {
+      if (Math.ceil(TotalReels / 5) !== page) {
+        dispatch(reels(page));
+      }
+    }, 1000);
+  }, [dispatch, page]);
 
   const handleOpenErrPopUp = () => {
     setErr(true);
@@ -27,8 +44,7 @@ function Reels() {
   const handleCloseErrPopUp = () => {
     setErr(false);
   };
-  const ReelsData = useSelector((state) => state?.HomeReducer?.reelData);
-  debugger;
+
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showCommentBox, setCommentBox] = useState(false);
@@ -185,7 +201,8 @@ function Reels() {
                   alt="comment"
                   className="post_reactImg"
                 />
-                {showReactIcon ? emojis.people : ""}
+                {/* {showReactIcon ? <ReactionBarSelector
+      reactions={Reactions} : ""} */}
                 <div className="post_reactImg" onClick={handleReactionClick}>
                   😊
                 </div>

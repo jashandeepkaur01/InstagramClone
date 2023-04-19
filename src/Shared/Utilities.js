@@ -44,7 +44,7 @@ export const numberValidation = (number) => {
 //   return tree;
 // };
 export const isValidFileUploaded = (file) => {
-  const validExtensions = ["png", "jpeg", "jpg"];
+  const validExtensions = ["png", "JPEG", "jpg"];
 
   let fileExtension = file?.split(".");
   fileExtension = fileExtension[1];

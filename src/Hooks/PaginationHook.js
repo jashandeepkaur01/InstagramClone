@@ -1,24 +1,16 @@
 import { useEffect, useState } from "react";
 
-function usePagination(totalPost) {
+function usePagination() {
   const [pageCount, setPageCount] = useState(1);
 
   useEffect(() => {
-    window.onscroll = (ev) => {
-      console.log(
-        "con1",
-        window.innerHeight + window.scrollY >= document.body.offsetHeight
-      );
-      console.log("con2", pageCount < Math.ceil(totalPost / 5));
-      if (
-        window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-        pageCount < Math.ceil(totalPost / 5)
-      ) {
-        setPageCount(pageCount + 1);
+    window.onscroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        setPageCount((prev) => prev + 1);
       }
     };
   }, []);
-  return [pageCount];
+  return [pageCount, setPageCount];
 }
 
 export default usePagination;

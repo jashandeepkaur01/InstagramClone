@@ -25,7 +25,6 @@ import { API } from "Shared/Constants";
 import { axiosInstance } from "Shared/Request";
 
 function* showData(payload) {
-  debugger;
   try {
     const response = yield axiosInstance.get(
       API.POST + "?page=" + payload.data
@@ -155,8 +154,10 @@ function* getCommentsCall({ data: { payload, success, fail } }) {
 
 function* getReels(payload) {
   try {
-    const response = yield axiosInstance.get(API.REEL, payload.data);
-    yield put(setReelsData(response?.data?.data));
+    const response = yield axiosInstance.get(
+      API.REEL + "?page=" + payload.data
+    );
+    yield put(setReelsData(response?.data));
   } catch (error) {
     if (payload && payload?.fail) {
       payload.fail(error.response.data.message);
