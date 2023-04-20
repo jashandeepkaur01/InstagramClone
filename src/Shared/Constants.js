@@ -4,7 +4,7 @@ export const STRINGS = {
     "You appear to be offline. Please check your internet connection.",
 };
 
-export const baseURL = "https://398d-122-160-165-213.ngrok-free.app/";
+export const baseURL = "https://d4e5-122-160-165-213.ngrok-free.app/";
 
 export const API = {
   LOGIN: baseURL + "login/",
@@ -43,16 +43,26 @@ export const Reactions = [
   {
     label: "haha",
     node: <div>😄</div>,
-    key: "smile",
+    key: 2,
   },
   {
     label: "angry",
     node: <div>😡</div>,
-    key: "anger",
+    key: 3,
   },
   {
-    label: "love",
-    node: <div>❤</div>,
-    key: "love",
+    label: "cute",
+    node: <div>🥰</div>,
+    key: 4,
+  },
+  {
+    label: "lovely",
+    node: <div>😍</div>,
+    key: 5,
+  },
+  {
+    label: "thumbsUp",
+    node: <div>👍</div>,
+    key: 6,
   },
 ];

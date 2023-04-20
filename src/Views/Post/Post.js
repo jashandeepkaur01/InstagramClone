@@ -1,4 +1,7 @@
-import { ReactionBarSelector } from "@charkour/react-reactions";
+import {
+  ReactionBarSelector,
+  ReactionCounter,
+} from "@charkour/react-reactions";
 import { Avatar } from "@mui/material";
 import usePagination from "Hooks/PaginationHook";
 import {
@@ -8,7 +11,7 @@ import {
   reportData,
 } from "Redux/Actions/feedPageActions";
 import { Reactions, baseURL, reportReasons } from "Shared/Constants";
-import { isValidFileUploaded } from "Shared/Utilities";
+import { isValidFileUploaded, reactFunction } from "Shared/Utilities";
 import CommentSec from "Views/CommentSection/CommentSec";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
@@ -19,11 +22,44 @@ import love from "../../Images/images/love.svg";
 import Comment from "../../Images/images/message.svg";
 import ReportIcon from "../../Images/images/option.png";
 import "./Post.css";
+
 function Post() {
   const TotalPost = useSelector((state) => state?.HomeReducer?.totalPost);
   const dispatch = useDispatch();
   const [page] = usePagination(TotalPost);
   const ImagesData = useSelector((state) => state?.HomeReducer?.feedData);
+  const [counterReaction, setCounterReactions] = useState([]);
+  const handleSelect = (key, listData) => {
+    const form = new FormData();
+    form.append("post_id", listData.id);
+    form.append("like_id", key);
+    dispatch(
+      like({
+        payload: form,
+        success: (res) => {
+          setReactIcon(false);
+          const reactionArr = reactFunction(listData.reactions);
+          console.log("reactArr", reactionArr);
+          setCounterReactions(reactionArr);
+          // const reaction = Reactions.find((reaction) => reaction.key === key);
+          // setCounterReactions((data) => {
+
+          //   return [
+          //     ...listData.reactions,
+          //     {
+          //       node: reaction.node,
+          //       label: reaction.label,
+          //     },
+          //   ];
+          // });
+        },
+        fail: (err) => {
+          setErrMsg(err.response.data.message);
+          handleOpenErrPopUp();
+        },
+      })
+    );
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -160,23 +196,6 @@ function Post() {
     }
   };
 
-  const handleEmoji = (post_id, like_id) => {
-    const form = new FormData();
-    form.append("post_id", post_id);
-    form.append("like_id", like_id);
-    dispatch(
-      like({
-        payload: form,
-        success: () => {
-          setReactIcon(false);
-        },
-        fail: (err) => {
-          setErrMsg(err.response.data.message);
-          handleOpenErrPopUp();
-        },
-      })
-    );
-  };
   return (
     <>
       <div id="container_main_div" className="container">
@@ -193,6 +212,7 @@ function Post() {
                     alt="report"
                   />
                 </div>
+                {console.log("data", ImagesData)}
               </div>
               <div className="main_div">
                 {checkextension(item.Image) ? (
@@ -238,14 +258,17 @@ function Post() {
                 {showReactIcon ? (
                   <ReactionBarSelector
                     reactions={Reactions}
-                    // onSelect={ReactionCounter}
+                    onSelect={(key) => handleSelect(key, item)}
                   />
                 ) : (
                   ""
                 )}
+                <ReactionCounter reactions={counterReaction} />
                 <div className="post_reactImg" onClick={handleReactionClick}>
                   😊
                 </div>
+
+                {item.total_reaction_count}
               </div>
               <div style={{ fontWeight: "bold", marginLeft: "20px" }}>
                 {item.LikeCount}

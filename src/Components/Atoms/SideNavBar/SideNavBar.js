@@ -1,6 +1,7 @@
 import { uploadData } from "Redux/Actions/feedPageActions";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import InputEmoji from "react-input-emoji";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Insta_logo from "../../../Images/images/logoinsta.png";
@@ -69,10 +70,6 @@ function Navbar() {
     handleShow();
   };
 
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
-  };
-
   const handleNextClick = (e) => {
     const formData = new FormData();
     formData.append("image", selectedImage);
@@ -110,16 +107,7 @@ function Navbar() {
             Home
           </button>
         </li>
-        {/* <li className="l1">
-          <button type="button" className="sideNavButton">
-            Search
-          </button>
-        </li>
-        <li className="l1">
-          <button type="button" className="sideNavButton">
-            Explore
-          </button>
-        </li> */}
+
         <li className="l1">
           <button
             onClick={handleReelSection}
@@ -129,16 +117,7 @@ function Navbar() {
             Reels
           </button>
         </li>
-        {/* <li className="l1">
-          <button type="button" className="sideNavButton">
-            Messages
-          </button>
-        </li>
-        <li className="l1">
-          <button type="button" className="sideNavButton">
-            Notifications
-          </button>
-        </li> */}
+
         <li className="l1">
           <button
             type="button"
@@ -173,26 +152,34 @@ function Navbar() {
         <Modal.Body>
           <div className="selectDiv">
             {fileStatus ? fileErr : ""}
-            <label>
-              {imageUrl && selectedImage && (
-                <div textAlign="center">
-                  <img
-                    src={imageUrl}
-                    alt={selectedImage.name}
-                    className="selectedPost"
-                  />
+            {/* <label className="w-100"> */}
+            {imageUrl && selectedImage && (
+              <div textAlign="center">
+                <img
+                  src={imageUrl}
+                  alt={selectedImage.name}
+                  className="selectedPost"
+                />
 
-                  <textarea
+                {/* <textarea
                     placeholder="Add a description...."
                     onChange={handleDescriptionChange}
                     value={description}
-                  ></textarea>
-                  <button className="nextBtn" onClick={handleNextClick}>
-                    Share
-                  </button>
-                </div>
-              )}
-            </label>
+                  ></textarea> */}
+                <InputEmoji
+                  value={description}
+                  onChange={setDescription}
+                  cleanOnEnter
+                  onEnter={handleNextClick}
+                  placeholder="Type a message"
+                />
+
+                <button className="btn btn-secondary" onClick={handleNextClick}>
+                  Share
+                </button>
+              </div>
+            )}
+            {/* </label> */}
             <br />
           </div>
         </Modal.Body>

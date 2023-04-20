@@ -42,6 +42,7 @@ const HomeReducer = (data = initialData, action) => {
         feedData: data.feedData.map((val) => {
           if (val.id === action.data.post_id) {
             val.LikeCount = action.data.total_like;
+            val.total_reaction_count = action.data.total_reactions;
           }
           return val;
         }),
