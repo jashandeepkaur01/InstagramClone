@@ -1,7 +1,3 @@
-import {
-  ReactionBarSelector,
-  ReactionCounter,
-} from "@charkour/react-reactions";
 import { Avatar } from "@mui/material";
 import usePagination from "Hooks/PaginationHook";
 import {
@@ -10,7 +6,7 @@ import {
   postComment,
   reportData,
 } from "Redux/Actions/feedPageActions";
-import { Reactions, baseURL, reportReasons } from "Shared/Constants";
+import { baseURL, reportReasons } from "Shared/Constants";
 import { isValidFileUploaded, reactFunction } from "Shared/Utilities";
 import CommentSec from "Views/CommentSection/CommentSec";
 import { useEffect, useState } from "react";
@@ -29,29 +25,27 @@ function Post() {
   const [page] = usePagination(TotalPost);
   const ImagesData = useSelector((state) => state?.HomeReducer?.feedData);
   const [counterReaction, setCounterReactions] = useState([]);
+  const [listData, setListData] = useState([]);
+
+  useEffect(() => {
+    setListData(ImagesData);
+  }, [ImagesData]);
+
   const handleSelect = (key, listData) => {
     const form = new FormData();
     form.append("post_id", listData.id);
     form.append("like_id", key);
+
     dispatch(
       like({
         payload: form,
         success: (res) => {
           setReactIcon(false);
+
           const reactionArr = reactFunction(listData.reactions);
           console.log("reactArr", reactionArr);
-          setCounterReactions(reactionArr);
-          // const reaction = Reactions.find((reaction) => reaction.key === key);
-          // setCounterReactions((data) => {
 
-          //   return [
-          //     ...listData.reactions,
-          //     {
-          //       node: reaction.node,
-          //       label: reaction.label,
-          //     },
-          //   ];
-          // });
+          setCounterReactions(reactionArr);
         },
         fail: (err) => {
           setErrMsg(err.response.data.message);
@@ -76,7 +70,7 @@ function Post() {
   const [postData, setPostData] = useState([]);
   const [commentErrStatus, setCommentErrStatus] = useState(false);
   const [commentErr, setCommentErr] = useState("");
-
+  const [key, setKey] = useState("");
   const handleOpenErrPopUp = () => {
     setErr(true);
   };
@@ -137,7 +131,7 @@ function Post() {
 
   const handleLikeClick = (item) => {
     const form = new FormData();
-    item.is_liked ? (item.is_liked = false) : (item.is_liked = true);
+    item.is_liked = !item.is_liked;
     form.append("post_id", item.id);
     form.append("like_id", 1);
     dispatch(
@@ -184,9 +178,14 @@ function Post() {
     setData(item);
   };
 
-  const handleReactionClick = () => {
-    !showReactIcon ? setReactIcon(true) : setReactIcon(false);
-  };
+  // const handleReactionClick = (item) => {
+  //   setKey(item.id);
+  //   if (item.id) {
+  //     setReactIcon(true);
+  //   } else {
+  //     setReactIcon(false);
+  //   }
+  // };
 
   const checkextension = (image) => {
     if (isValidFileUploaded(image)) {
@@ -199,7 +198,7 @@ function Post() {
   return (
     <>
       <div id="container_main_div" className="container">
-        {ImagesData?.map((item, idx) => {
+        {listData?.map((item, idx) => {
           return (
             <div key={idx} className="main_content">
               <div className="post_header">
@@ -212,7 +211,6 @@ function Post() {
                     alt="report"
                   />
                 </div>
-                {console.log("data", ImagesData)}
               </div>
               <div className="main_div">
                 {checkextension(item.Image) ? (
@@ -255,7 +253,8 @@ function Post() {
                   alt="comment"
                   className="post_reactImg"
                 />
-                {showReactIcon ? (
+
+                {/* {key === item.id && showReactIcon ? (
                   <ReactionBarSelector
                     reactions={Reactions}
                     onSelect={(key) => handleSelect(key, item)}
@@ -263,12 +262,18 @@ function Post() {
                 ) : (
                   ""
                 )}
-                <ReactionCounter reactions={counterReaction} />
-                <div className="post_reactImg" onClick={handleReactionClick}>
+                {key === item.id ? (
+                  <ReactionCounter reactions={counterReaction} />
+                ) : (
+                  ""
+                )}
+                <div
+                  className="post_reactImg"
+                  onClick={() => handleReactionClick(item)}
+                >
                   😊
                 </div>
-
-                {item.total_reaction_count}
+                {item.total_reaction_count} */}
               </div>
               <div style={{ fontWeight: "bold", marginLeft: "20px" }}>
                 {item.LikeCount}
